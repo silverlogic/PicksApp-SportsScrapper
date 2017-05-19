@@ -3,7 +3,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "PicksApp-SportsScrapper",
+    name: "SportsScrapper",
     targets: [
         Target(
             name: "SportsScrapperServer",
@@ -16,6 +16,8 @@ let package = Package(
     dependencies: [
         .Package(url: "https://github.com/IBM-Swift/Kitura.git", majorVersion: 1, minor: 7),
         .Package(url: "https://github.com/IBM-Swift/Swift-cfenv.git", majorVersion: 4, minor: 0),
-        .Package(url: "https://github.com/honghaoz/Ji.git", majorVersion: 2)
+        .Package(url: "https://github.com/honghaoz/Ji.git", majorVersion: 2),
+        .Package(url: "https://github.com/IBM-Swift/HeliumLogger.git", majorVersion: 1, minor: 7),
+        .Package(url: "https://github.com/IBM-Swift/Kitura-Request.git", majorVersion: 0)
     ]
 )

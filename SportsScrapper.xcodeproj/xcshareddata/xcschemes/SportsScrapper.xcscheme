@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_167"
+               BlueprintIdentifier = "OBJ_194"
                BuildableName = "LoggerAPI.framework"
                BlueprintName = "LoggerAPI"
-               ReferencedContainer = "container:PicksApp-SportsScrapper.xcodeproj">
+               ReferencedContainer = "container:SportsScrapper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -28,10 +28,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_174"
+               BlueprintIdentifier = "OBJ_201"
                BuildableName = "Socket.framework"
                BlueprintName = "Socket"
-               ReferencedContainer = "container:PicksApp-SportsScrapper.xcodeproj">
+               ReferencedContainer = "container:SportsScrapper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -42,10 +42,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_183"
+               BlueprintIdentifier = "OBJ_210"
                BuildableName = "SSLService.framework"
                BlueprintName = "SSLService"
-               ReferencedContainer = "container:PicksApp-SportsScrapper.xcodeproj">
+               ReferencedContainer = "container:SportsScrapper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -56,10 +56,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_192"
+               BlueprintIdentifier = "OBJ_219"
                BuildableName = "KituraNet.framework"
                BlueprintName = "KituraNet"
-               ReferencedContainer = "container:PicksApp-SportsScrapper.xcodeproj">
+               ReferencedContainer = "container:SportsScrapper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -70,10 +70,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_240"
+               BlueprintIdentifier = "OBJ_267"
                BuildableName = "CHTTPParser.framework"
                BlueprintName = "CHTTPParser"
-               ReferencedContainer = "container:PicksApp-SportsScrapper.xcodeproj">
+               ReferencedContainer = "container:SportsScrapper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -84,10 +84,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_255"
+               BlueprintIdentifier = "OBJ_282"
                BuildableName = "SwiftyJSON.framework"
                BlueprintName = "SwiftyJSON"
-               ReferencedContainer = "container:PicksApp-SportsScrapper.xcodeproj">
+               ReferencedContainer = "container:SportsScrapper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -98,10 +98,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_263"
+               BlueprintIdentifier = "OBJ_290"
                BuildableName = "KituraTemplateEngine.framework"
                BlueprintName = "KituraTemplateEngine"
-               ReferencedContainer = "container:PicksApp-SportsScrapper.xcodeproj">
+               ReferencedContainer = "container:SportsScrapper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -112,10 +112,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_270"
+               BlueprintIdentifier = "OBJ_297"
                BuildableName = "Kitura.framework"
                BlueprintName = "Kitura"
-               ReferencedContainer = "container:PicksApp-SportsScrapper.xcodeproj">
+               ReferencedContainer = "container:SportsScrapper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -126,38 +126,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_333"
+               BlueprintIdentifier = "OBJ_360"
                BuildableName = "Configuration.framework"
                BlueprintName = "Configuration"
-               ReferencedContainer = "container:PicksApp-SportsScrapper.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_347"
-               BuildableName = "TestProgram"
-               BlueprintName = "TestProgram"
-               ReferencedContainer = "container:PicksApp-SportsScrapper.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_358"
-               BuildableName = "CloudFoundryEnv.framework"
-               BlueprintName = "CloudFoundryEnv"
-               ReferencedContainer = "container:PicksApp-SportsScrapper.xcodeproj">
+               ReferencedContainer = "container:SportsScrapper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -169,9 +141,37 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "OBJ_374"
+               BuildableName = "TestProgram"
+               BlueprintName = "TestProgram"
+               ReferencedContainer = "container:SportsScrapper.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "OBJ_385"
+               BuildableName = "CloudFoundryEnv.framework"
+               BlueprintName = "CloudFoundryEnv"
+               ReferencedContainer = "container:SportsScrapper.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "OBJ_401"
                BuildableName = "Ji.framework"
                BlueprintName = "Ji"
-               ReferencedContainer = "container:PicksApp-SportsScrapper.xcodeproj">
+               ReferencedContainer = "container:SportsScrapper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -182,10 +182,38 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_383"
+               BlueprintIdentifier = "OBJ_410"
+               BuildableName = "HeliumLogger.framework"
+               BlueprintName = "HeliumLogger"
+               ReferencedContainer = "container:SportsScrapper.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "OBJ_420"
+               BuildableName = "KituraRequest.framework"
+               BlueprintName = "KituraRequest"
+               ReferencedContainer = "container:SportsScrapper.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "OBJ_450"
                BuildableName = "SportsScrapperServer"
                BlueprintName = "SportsScrapperServer"
-               ReferencedContainer = "container:PicksApp-SportsScrapper.xcodeproj">
+               ReferencedContainer = "container:SportsScrapper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -196,10 +224,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_414"
+               BlueprintIdentifier = "OBJ_485"
                BuildableName = "SportsScrapperAPI.framework"
                BlueprintName = "SportsScrapperAPI"
-               ReferencedContainer = "container:PicksApp-SportsScrapper.xcodeproj">
+               ReferencedContainer = "container:SportsScrapper.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -214,10 +242,10 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "OBJ_443"
+               BlueprintIdentifier = "OBJ_520"
                BuildableName = "PicksApp-SportsScrapperTests.xctest"
                BlueprintName = "PicksApp-SportsScrapperTests"
-               ReferencedContainer = "container:PicksApp-SportsScrapper.xcodeproj">
+               ReferencedContainer = "container:SportsScrapper.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -237,10 +265,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "OBJ_167"
+            BlueprintIdentifier = "OBJ_194"
             BuildableName = "LoggerAPI.framework"
             BlueprintName = "LoggerAPI"
-            ReferencedContainer = "container:PicksApp-SportsScrapper.xcodeproj">
+            ReferencedContainer = "container:SportsScrapper.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
