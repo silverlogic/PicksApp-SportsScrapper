@@ -1,0 +1,10 @@
+applications:
+- path: .
+  memory: 256M
+  instances: 1
+  domain: mybluemix.net
+  name: Picks-SportsScrapper
+  host: Picks-SportsScrapper
+  disk_quota: 1024M
+  buildpack: swift_buildpack
+  command: SportsScrapperServer

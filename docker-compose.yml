@@ -1,0 +1,7 @@
+app:
+  image: ibmcom/swift-ubuntu
+  ports:
+    - "8080:8080"
+  volumes:
+    - .:/root/Picks-SportsScrapper
+  command: bash -c " cd /root/Picks-SportsScrapper && swift build --clean && swift build --configuration release && ./.build/release/SportsScrapperServer"
