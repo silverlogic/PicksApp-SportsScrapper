@@ -4,15 +4,15 @@ import HeliumLogger
 import LoggerAPI
 import CloudFoundryEnv
 import Configuration
-import SportsScrapperAPI
+import SportsScraperAPI
 
 HeliumLogger.use()
-let sportsScrapper = SportsScrapper()
+let sportsScrapper = SportsScraper()
 Log.info("Attempting init with CF environment")
-let controller = SportsScrapperController(backend: sportsScrapper)
+let sportsScraperRouter = SportsScraperRouter(backend: sportsScrapper)
 let appEnv = ConfigurationManager()
 let port = appEnv.port
 Log.verbose("Assigned port \(port)")
-Log.info("Server will start on \(appEnv.url)")
-Kitura.addHTTPServer(onPort: port, with: controller.router)
+Log.info("REST API can be accessed at \(appEnv.url)")
+Kitura.addHTTPServer(onPort: port, with: sportsScraperRouter.router)
 Kitura.run()

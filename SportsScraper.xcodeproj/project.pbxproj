@@ -166,10 +166,10 @@
 		OBJ_467 /* Ji.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_188 /* Ji.framework */; };
 		OBJ_468 /* HeliumLogger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_189 /* HeliumLogger.framework */; };
 		OBJ_469 /* KituraRequest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_190 /* KituraRequest.framework */; };
-		OBJ_470 /* SportsScrapperAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_192 /* SportsScrapperAPI.framework */; };
-		OBJ_490 /* SportsScrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* SportsScrapper.swift */; };
-		OBJ_491 /* SportsScrapperAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* SportsScrapperAPI.swift */; };
-		OBJ_492 /* SportsScrapperController.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* SportsScrapperController.swift */; };
+		OBJ_470 /* SportsScraperAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_192 /* SportsScraperAPI.framework */; };
+		OBJ_490 /* SportsScraper.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_11 /* SportsScraper.swift */; };
+		OBJ_491 /* SportsScraperAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_12 /* SportsScraperAPI.swift */; };
+		OBJ_492 /* SportsScraperRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = OBJ_13 /* SportsScraperRouter.swift */; };
 		OBJ_494 /* LoggerAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_177 /* LoggerAPI.framework */; };
 		OBJ_495 /* Socket.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_178 /* Socket.framework */; };
 		OBJ_496 /* SSLService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = OBJ_179 /* SSLService.framework */; };
@@ -200,462 +200,462 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		88E6B9FE1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6AE1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_201;
 			remoteInfo = Socket;
 		};
-		88E6B9FF1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6AF1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_194;
 			remoteInfo = LoggerAPI;
 		};
-		88E6BA001ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6B01ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_201;
 			remoteInfo = Socket;
 		};
-		88E6BA011ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6B11ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_210;
 			remoteInfo = SSLService;
 		};
-		88E6BA021ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6B21ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_267;
 			remoteInfo = CHTTPParser;
 		};
-		88E6BA031ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6B31ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_194;
 			remoteInfo = LoggerAPI;
 		};
-		88E6BA041ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6B41ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_201;
 			remoteInfo = Socket;
 		};
-		88E6BA051ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6B51ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_210;
 			remoteInfo = SSLService;
 		};
-		88E6BA061ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6B61ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_194;
 			remoteInfo = LoggerAPI;
 		};
-		88E6BA071ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6B71ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_201;
 			remoteInfo = Socket;
 		};
-		88E6BA081ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6B81ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_210;
 			remoteInfo = SSLService;
 		};
-		88E6BA091ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6B91ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_267;
 			remoteInfo = CHTTPParser;
 		};
-		88E6BA0A1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6BA1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_219;
 			remoteInfo = KituraNet;
 		};
-		88E6BA0B1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6BB1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_282;
 			remoteInfo = SwiftyJSON;
 		};
-		88E6BA0C1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6BC1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_290;
 			remoteInfo = KituraTemplateEngine;
 		};
-		88E6BA0D1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6BD1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_194;
 			remoteInfo = LoggerAPI;
 		};
-		88E6BA0E1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6BE1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_194;
 			remoteInfo = LoggerAPI;
 		};
-		88E6BA0F1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6BF1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_360;
 			remoteInfo = Configuration;
 		};
-		88E6BA101ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6C01ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_194;
 			remoteInfo = LoggerAPI;
 		};
-		88E6BA111ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6C11ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_360;
 			remoteInfo = Configuration;
 		};
-		88E6BA121ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6C21ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_194;
 			remoteInfo = LoggerAPI;
 		};
-		88E6BA131ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6C31ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_194;
 			remoteInfo = LoggerAPI;
 		};
-		88E6BA141ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6C41ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_201;
 			remoteInfo = Socket;
 		};
-		88E6BA151ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6C51ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_210;
 			remoteInfo = SSLService;
 		};
-		88E6BA161ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6C61ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_267;
 			remoteInfo = CHTTPParser;
 		};
-		88E6BA171ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6C71ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_219;
 			remoteInfo = KituraNet;
 		};
-		88E6BA181ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6C81ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_194;
 			remoteInfo = LoggerAPI;
 		};
-		88E6BA191ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6C91ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_201;
 			remoteInfo = Socket;
 		};
-		88E6BA1A1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6CA1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_210;
 			remoteInfo = SSLService;
 		};
-		88E6BA1B1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6CB1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_267;
 			remoteInfo = CHTTPParser;
 		};
-		88E6BA1C1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6CC1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_219;
 			remoteInfo = KituraNet;
 		};
-		88E6BA1D1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6CD1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_282;
 			remoteInfo = SwiftyJSON;
 		};
-		88E6BA1E1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6CE1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_290;
 			remoteInfo = KituraTemplateEngine;
 		};
-		88E6BA1F1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6CF1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_297;
 			remoteInfo = Kitura;
 		};
-		88E6BA201ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6D01ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_360;
 			remoteInfo = Configuration;
 		};
-		88E6BA211ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6D11ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_385;
 			remoteInfo = CloudFoundryEnv;
 		};
-		88E6BA221ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6D21ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_401;
 			remoteInfo = Ji;
 		};
-		88E6BA231ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6D31ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_410;
 			remoteInfo = HeliumLogger;
 		};
-		88E6BA241ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6D41ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_420;
 			remoteInfo = KituraRequest;
 		};
-		88E6BA251ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6D51ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_485;
-			remoteInfo = SportsScrapperAPI;
+			remoteInfo = SportsScraperAPI;
 		};
-		88E6BA261ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6D61ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_194;
 			remoteInfo = LoggerAPI;
 		};
-		88E6BA271ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6D71ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_201;
 			remoteInfo = Socket;
 		};
-		88E6BA281ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6D81ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_210;
 			remoteInfo = SSLService;
 		};
-		88E6BA291ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6D91ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_267;
 			remoteInfo = CHTTPParser;
 		};
-		88E6BA2A1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6DA1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_219;
 			remoteInfo = KituraNet;
 		};
-		88E6BA2B1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6DB1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_282;
 			remoteInfo = SwiftyJSON;
 		};
-		88E6BA2C1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6DC1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_290;
 			remoteInfo = KituraTemplateEngine;
 		};
-		88E6BA2D1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6DD1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_297;
 			remoteInfo = Kitura;
 		};
-		88E6BA2E1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6DE1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_360;
 			remoteInfo = Configuration;
 		};
-		88E6BA2F1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6DF1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_385;
 			remoteInfo = CloudFoundryEnv;
 		};
-		88E6BA301ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6E01ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_401;
 			remoteInfo = Ji;
 		};
-		88E6BA311ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6E11ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_410;
 			remoteInfo = HeliumLogger;
 		};
-		88E6BA321ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6E21ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_420;
 			remoteInfo = KituraRequest;
 		};
-		88E6BA331ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6E31ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_194;
 			remoteInfo = LoggerAPI;
 		};
-		88E6BA341ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6E41ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_201;
 			remoteInfo = Socket;
 		};
-		88E6BA351ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6E51ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_210;
 			remoteInfo = SSLService;
 		};
-		88E6BA361ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6E61ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_267;
 			remoteInfo = CHTTPParser;
 		};
-		88E6BA371ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6E71ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_219;
 			remoteInfo = KituraNet;
 		};
-		88E6BA381ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6E81ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_282;
 			remoteInfo = SwiftyJSON;
 		};
-		88E6BA391ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6E91ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_290;
 			remoteInfo = KituraTemplateEngine;
 		};
-		88E6BA3A1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6EA1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_297;
 			remoteInfo = Kitura;
 		};
-		88E6BA3B1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6EB1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_360;
 			remoteInfo = Configuration;
 		};
-		88E6BA3C1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6EC1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_385;
 			remoteInfo = CloudFoundryEnv;
 		};
-		88E6BA3D1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6ED1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_401;
 			remoteInfo = Ji;
 		};
-		88E6BA3E1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6EE1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = OBJ_410;
 			remoteInfo = HeliumLogger;
 		};
-		88E6BA3F1ECF78B500444818 /* PBXContainerItemProxy */ = {
+		889AD6EF1ECFA44B00AB2AAD /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = OBJ_1 /* Project object */;
 			proxyType = 1;
@@ -673,14 +673,14 @@
 		OBJ_107 /* CacheRelatedHeadersSetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheRelatedHeadersSetter.swift; sourceTree = "<group>"; };
 		OBJ_108 /* CompositeHeadersSetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeHeadersSetter.swift; sourceTree = "<group>"; };
 		OBJ_109 /* FileServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileServer.swift; sourceTree = "<group>"; };
-		OBJ_11 /* SportsScrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsScrapper.swift; sourceTree = "<group>"; };
+		OBJ_11 /* SportsScraper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsScraper.swift; sourceTree = "<group>"; };
 		OBJ_110 /* ResourcePathHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcePathHandler.swift; sourceTree = "<group>"; };
 		OBJ_111 /* ResponseHeadersSetter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseHeadersSetter.swift; sourceTree = "<group>"; };
 		OBJ_112 /* StaticFileServer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StaticFileServer.swift; sourceTree = "<group>"; };
 		OBJ_115 /* TemplateEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateEngine.swift; sourceTree = "<group>"; };
 		OBJ_117 /* LclJSONSerialization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LclJSONSerialization.swift; sourceTree = "<group>"; };
 		OBJ_118 /* SwiftyJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
-		OBJ_12 /* SportsScrapperAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsScrapperAPI.swift; sourceTree = "<group>"; };
+		OBJ_12 /* SportsScraperAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsScraperAPI.swift; sourceTree = "<group>"; };
 		OBJ_121 /* BufferList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BufferList.swift; sourceTree = "<group>"; };
 		OBJ_122 /* ClientRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientRequest.swift; sourceTree = "<group>"; };
 		OBJ_123 /* ClientResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientResponse.swift; sourceTree = "<group>"; };
@@ -690,7 +690,7 @@
 		OBJ_127 /* HeadersContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadersContainer.swift; sourceTree = "<group>"; };
 		OBJ_128 /* IncomingSocketHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingSocketHandler.swift; sourceTree = "<group>"; };
 		OBJ_129 /* IncomingSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingSocketManager.swift; sourceTree = "<group>"; };
-		OBJ_13 /* SportsScrapperController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsScrapperController.swift; sourceTree = "<group>"; };
+		OBJ_13 /* SportsScraperRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportsScraperRouter.swift; sourceTree = "<group>"; };
 		OBJ_130 /* IncomingSocketProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomingSocketProcessor.swift; sourceTree = "<group>"; };
 		OBJ_131 /* ListenerGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListenerGroup.swift; sourceTree = "<group>"; };
 		OBJ_132 /* ServerRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerRequest.swift; sourceTree = "<group>"; };
@@ -741,8 +741,8 @@
 		OBJ_188 /* Ji.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Ji.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_189 /* HeliumLogger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HeliumLogger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_190 /* KituraRequest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = KituraRequest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		OBJ_191 /* SportsScrapperServer */ = {isa = PBXFileReference; lastKnownFileType = text; path = SportsScrapperServer; sourceTree = BUILT_PRODUCTS_DIR; };
-		OBJ_192 /* SportsScrapperAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SportsScrapperAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_191 /* SportsScraperServer */ = {isa = PBXFileReference; lastKnownFileType = text; path = SportsScraperServer; sourceTree = BUILT_PRODUCTS_DIR; };
+		OBJ_192 /* SportsScraperAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SportsScraperAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_193 /* PicksApp_SportsScrapperTests.xctest */ = {isa = PBXFileReference; lastKnownFileType = file; name = PicksApp_SportsScrapperTests.xctest; path = "PicksApp-SportsScrapperTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		OBJ_20 /* KituraRequest+Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "KituraRequest+Error.swift"; sourceTree = "<group>"; };
 		OBJ_21 /* KituraRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KituraRequest.swift; sourceTree = "<group>"; };
@@ -954,7 +954,7 @@
 				OBJ_467 /* Ji.framework in Frameworks */,
 				OBJ_468 /* HeliumLogger.framework in Frameworks */,
 				OBJ_469 /* KituraRequest.framework in Frameworks */,
-				OBJ_470 /* SportsScrapperAPI.framework in Frameworks */,
+				OBJ_470 /* SportsScraperAPI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1001,15 +1001,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		OBJ_10 /* SportsScrapperAPI */ = {
+		OBJ_10 /* SportsScraperAPI */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_11 /* SportsScrapper.swift */,
-				OBJ_12 /* SportsScrapperAPI.swift */,
-				OBJ_13 /* SportsScrapperController.swift */,
+				OBJ_11 /* SportsScraper.swift */,
+				OBJ_12 /* SportsScraperAPI.swift */,
+				OBJ_13 /* SportsScraperRouter.swift */,
 			);
-			name = SportsScrapperAPI;
-			path = Sources/SportsScrapperAPI;
+			name = SportsScraperAPI;
+			path = Sources/SportsScraperAPI;
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_103 /* contentType */ = {
@@ -1265,8 +1265,8 @@
 				OBJ_188 /* Ji.framework */,
 				OBJ_189 /* HeliumLogger.framework */,
 				OBJ_190 /* KituraRequest.framework */,
-				OBJ_191 /* SportsScrapperServer */,
-				OBJ_192 /* SportsScrapperAPI.framework */,
+				OBJ_191 /* SportsScraperServer */,
+				OBJ_192 /* SportsScraperAPI.framework */,
 				OBJ_193 /* PicksApp_SportsScrapperTests.xctest */,
 			);
 			name = Products;
@@ -1485,19 +1485,19 @@
 		OBJ_7 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				OBJ_8 /* SportsScrapperServer */,
-				OBJ_10 /* SportsScrapperAPI */,
+				OBJ_8 /* SportsScraperServer */,
+				OBJ_10 /* SportsScraperAPI */,
 			);
 			name = Sources;
 			sourceTree = SOURCE_ROOT;
 		};
-		OBJ_8 /* SportsScrapperServer */ = {
+		OBJ_8 /* SportsScraperServer */ = {
 			isa = PBXGroup;
 			children = (
 				OBJ_9 /* main.swift */,
 			);
-			name = SportsScrapperServer;
-			path = Sources/SportsScrapperServer;
+			name = SportsScraperServer;
+			path = Sources/SportsScraperServer;
 			sourceTree = SOURCE_ROOT;
 		};
 		OBJ_93 /* bodyParser */ = {
@@ -1770,9 +1770,9 @@
 			productReference = OBJ_190 /* KituraRequest.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		OBJ_450 /* SportsScrapperServer */ = {
+		OBJ_450 /* SportsScraperServer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_451 /* Build configuration list for PBXNativeTarget "SportsScrapperServer" */;
+			buildConfigurationList = OBJ_451 /* Build configuration list for PBXNativeTarget "SportsScraperServer" */;
 			buildPhases = (
 				OBJ_454 /* Sources */,
 				OBJ_456 /* Frameworks */,
@@ -1795,14 +1795,14 @@
 				OBJ_483 /* PBXTargetDependency */,
 				OBJ_484 /* PBXTargetDependency */,
 			);
-			name = SportsScrapperServer;
-			productName = SportsScrapperServer;
-			productReference = OBJ_191 /* SportsScrapperServer */;
+			name = SportsScraperServer;
+			productName = SportsScraperServer;
+			productReference = OBJ_191 /* SportsScraperServer */;
 			productType = "com.apple.product-type.tool";
 		};
-		OBJ_485 /* SportsScrapperAPI */ = {
+		OBJ_485 /* SportsScraperAPI */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = OBJ_486 /* Build configuration list for PBXNativeTarget "SportsScrapperAPI" */;
+			buildConfigurationList = OBJ_486 /* Build configuration list for PBXNativeTarget "SportsScraperAPI" */;
 			buildPhases = (
 				OBJ_489 /* Sources */,
 				OBJ_493 /* Frameworks */,
@@ -1824,9 +1824,9 @@
 				OBJ_518 /* PBXTargetDependency */,
 				OBJ_519 /* PBXTargetDependency */,
 			);
-			name = SportsScrapperAPI;
-			productName = SportsScrapperAPI;
-			productReference = OBJ_192 /* SportsScrapperAPI.framework */;
+			name = SportsScraperAPI;
+			productName = SportsScraperAPI;
+			productReference = OBJ_192 /* SportsScraperAPI.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		OBJ_520 /* PicksApp-SportsScrapperTests */ = {
@@ -1866,7 +1866,7 @@
 			attributes = {
 				LastUpgradeCheck = 9999;
 			};
-			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "SportsScrapper" */;
+			buildConfigurationList = OBJ_2 /* Build configuration list for PBXProject "SportsScraper" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -1892,8 +1892,8 @@
 				OBJ_401 /* Ji */,
 				OBJ_410 /* HeliumLogger */,
 				OBJ_420 /* KituraRequest */,
-				OBJ_450 /* SportsScrapperServer */,
-				OBJ_485 /* SportsScrapperAPI */,
+				OBJ_450 /* SportsScraperServer */,
+				OBJ_485 /* SportsScraperAPI */,
 				OBJ_520 /* PicksApp-SportsScrapperTests */,
 			);
 		};
@@ -2141,9 +2141,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 0;
 			files = (
-				OBJ_490 /* SportsScrapper.swift in Sources */,
-				OBJ_491 /* SportsScrapperAPI.swift in Sources */,
-				OBJ_492 /* SportsScrapperController.swift in Sources */,
+				OBJ_490 /* SportsScraper.swift in Sources */,
+				OBJ_491 /* SportsScraperAPI.swift in Sources */,
+				OBJ_492 /* SportsScraperRouter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2161,332 +2161,332 @@
 		OBJ_218 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_201 /* Socket */;
-			targetProxy = 88E6B9FE1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6AE1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_263 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_194 /* LoggerAPI */;
-			targetProxy = 88E6B9FF1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6AF1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_264 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_201 /* Socket */;
-			targetProxy = 88E6BA001ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6B01ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_265 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_210 /* SSLService */;
-			targetProxy = 88E6BA011ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6B11ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_266 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_267 /* CHTTPParser */;
-			targetProxy = 88E6BA021ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6B21ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_279 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_194 /* LoggerAPI */;
-			targetProxy = 88E6BA031ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6B31ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_280 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_201 /* Socket */;
-			targetProxy = 88E6BA041ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6B41ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_281 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_210 /* SSLService */;
-			targetProxy = 88E6BA051ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6B51ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_353 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_194 /* LoggerAPI */;
-			targetProxy = 88E6BA061ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6B61ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_354 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_201 /* Socket */;
-			targetProxy = 88E6BA071ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6B71ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_355 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_210 /* SSLService */;
-			targetProxy = 88E6BA081ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6B81ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_356 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_267 /* CHTTPParser */;
-			targetProxy = 88E6BA091ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6B91ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_357 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_219 /* KituraNet */;
-			targetProxy = 88E6BA0A1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6BA1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_358 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_282 /* SwiftyJSON */;
-			targetProxy = 88E6BA0B1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6BB1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_359 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_290 /* KituraTemplateEngine */;
-			targetProxy = 88E6BA0C1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6BC1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_373 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_194 /* LoggerAPI */;
-			targetProxy = 88E6BA0D1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6BD1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_383 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_194 /* LoggerAPI */;
-			targetProxy = 88E6BA0E1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6BE1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_384 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_360 /* Configuration */;
-			targetProxy = 88E6BA0F1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6BF1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_399 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_194 /* LoggerAPI */;
-			targetProxy = 88E6BA101ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6C01ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_400 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_360 /* Configuration */;
-			targetProxy = 88E6BA111ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6C11ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_419 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_194 /* LoggerAPI */;
-			targetProxy = 88E6BA121ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6C21ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_445 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_194 /* LoggerAPI */;
-			targetProxy = 88E6BA131ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6C31ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_446 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_201 /* Socket */;
-			targetProxy = 88E6BA141ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6C41ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_447 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_210 /* SSLService */;
-			targetProxy = 88E6BA151ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6C51ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_448 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_267 /* CHTTPParser */;
-			targetProxy = 88E6BA161ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6C61ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_449 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_219 /* KituraNet */;
-			targetProxy = 88E6BA171ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6C71ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_471 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_194 /* LoggerAPI */;
-			targetProxy = 88E6BA181ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6C81ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_472 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_201 /* Socket */;
-			targetProxy = 88E6BA191ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6C91ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_473 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_210 /* SSLService */;
-			targetProxy = 88E6BA1A1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6CA1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_474 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_267 /* CHTTPParser */;
-			targetProxy = 88E6BA1B1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6CB1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_475 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_219 /* KituraNet */;
-			targetProxy = 88E6BA1C1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6CC1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_476 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_282 /* SwiftyJSON */;
-			targetProxy = 88E6BA1D1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6CD1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_477 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_290 /* KituraTemplateEngine */;
-			targetProxy = 88E6BA1E1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6CE1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_478 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_297 /* Kitura */;
-			targetProxy = 88E6BA1F1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6CF1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_479 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_360 /* Configuration */;
-			targetProxy = 88E6BA201ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6D01ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_480 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_385 /* CloudFoundryEnv */;
-			targetProxy = 88E6BA211ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6D11ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_481 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_401 /* Ji */;
-			targetProxy = 88E6BA221ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6D21ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_482 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_410 /* HeliumLogger */;
-			targetProxy = 88E6BA231ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6D31ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_483 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_420 /* KituraRequest */;
-			targetProxy = 88E6BA241ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6D41ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_484 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = OBJ_485 /* SportsScrapperAPI */;
-			targetProxy = 88E6BA251ECF78B500444818 /* PBXContainerItemProxy */;
+			target = OBJ_485 /* SportsScraperAPI */;
+			targetProxy = 889AD6D51ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_507 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_194 /* LoggerAPI */;
-			targetProxy = 88E6BA261ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6D61ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_508 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_201 /* Socket */;
-			targetProxy = 88E6BA271ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6D71ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_509 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_210 /* SSLService */;
-			targetProxy = 88E6BA281ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6D81ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_510 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_267 /* CHTTPParser */;
-			targetProxy = 88E6BA291ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6D91ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_511 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_219 /* KituraNet */;
-			targetProxy = 88E6BA2A1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6DA1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_512 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_282 /* SwiftyJSON */;
-			targetProxy = 88E6BA2B1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6DB1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_513 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_290 /* KituraTemplateEngine */;
-			targetProxy = 88E6BA2C1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6DC1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_514 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_297 /* Kitura */;
-			targetProxy = 88E6BA2D1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6DD1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_515 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_360 /* Configuration */;
-			targetProxy = 88E6BA2E1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6DE1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_516 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_385 /* CloudFoundryEnv */;
-			targetProxy = 88E6BA2F1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6DF1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_517 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_401 /* Ji */;
-			targetProxy = 88E6BA301ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6E01ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_518 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_410 /* HeliumLogger */;
-			targetProxy = 88E6BA311ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6E11ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_519 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_420 /* KituraRequest */;
-			targetProxy = 88E6BA321ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6E21ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_540 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_194 /* LoggerAPI */;
-			targetProxy = 88E6BA331ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6E31ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_541 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_201 /* Socket */;
-			targetProxy = 88E6BA341ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6E41ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_542 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_210 /* SSLService */;
-			targetProxy = 88E6BA351ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6E51ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_543 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_267 /* CHTTPParser */;
-			targetProxy = 88E6BA361ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6E61ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_544 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_219 /* KituraNet */;
-			targetProxy = 88E6BA371ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6E71ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_545 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_282 /* SwiftyJSON */;
-			targetProxy = 88E6BA381ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6E81ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_546 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_290 /* KituraTemplateEngine */;
-			targetProxy = 88E6BA391ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6E91ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_547 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_297 /* Kitura */;
-			targetProxy = 88E6BA3A1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6EA1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_548 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_360 /* Configuration */;
-			targetProxy = 88E6BA3B1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6EB1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_549 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_385 /* CloudFoundryEnv */;
-			targetProxy = 88E6BA3C1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6EC1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_550 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_401 /* Ji */;
-			targetProxy = 88E6BA3D1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6ED1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_551 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_410 /* HeliumLogger */;
-			targetProxy = 88E6BA3E1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6EE1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 		OBJ_552 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = OBJ_420 /* KituraRequest */;
-			targetProxy = 88E6BA3F1ECF78B500444818 /* PBXContainerItemProxy */;
+			targetProxy = 889AD6EF1ECFA44B00AB2AAD /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2500,7 +2500,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/LoggerAPI_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/LoggerAPI_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -2521,7 +2521,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/LoggerAPI_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/LoggerAPI_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -2542,7 +2542,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/Socket_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/Socket_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -2563,7 +2563,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/Socket_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/Socket_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -2584,7 +2584,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/SSLService_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/SSLService_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -2605,7 +2605,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/SSLService_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/SSLService_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -2630,7 +2630,7 @@
 					"$(SRCROOT)/.build/checkouts/CCurl.git-8026296523752779197",
 					"$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include",
 				);
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/KituraNet_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/KituraNet_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_TEMP_DIR)/SymlinkLibs/";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -2656,7 +2656,7 @@
 					"$(SRCROOT)/.build/checkouts/CCurl.git-8026296523752779197",
 					"$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include",
 				);
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/KituraNet_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/KituraNet_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_TEMP_DIR)/SymlinkLibs/";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -2683,7 +2683,7 @@
 					"$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include",
 					"$(SRCROOT)/.build/checkouts/CCurl.git-8026296523752779197",
 				);
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/CHTTPParser_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/CHTTPParser_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -2709,7 +2709,7 @@
 					"$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include",
 					"$(SRCROOT)/.build/checkouts/CCurl.git-8026296523752779197",
 				);
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/CHTTPParser_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/CHTTPParser_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -2730,7 +2730,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/SwiftyJSON_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/SwiftyJSON_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -2751,7 +2751,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/SwiftyJSON_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/SwiftyJSON_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -2772,7 +2772,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/KituraTemplateEngine_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/KituraTemplateEngine_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -2793,7 +2793,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/KituraTemplateEngine_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/KituraTemplateEngine_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -2818,7 +2818,7 @@
 					"$(SRCROOT)/.build/checkouts/CCurl.git-8026296523752779197",
 					"$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include",
 				);
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/Kitura_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/Kitura_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_TEMP_DIR)/SymlinkLibs/";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -2867,7 +2867,7 @@
 					"$(SRCROOT)/.build/checkouts/CCurl.git-8026296523752779197",
 					"$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include",
 				);
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/Kitura_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/Kitura_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_TEMP_DIR)/SymlinkLibs/";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -2889,7 +2889,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/Configuration_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/Configuration_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -2910,7 +2910,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/Configuration_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/Configuration_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -2930,7 +2930,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/TestProgram_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/TestProgram_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx @executable_path";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -2948,7 +2948,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/TestProgram_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/TestProgram_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx @executable_path";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -2967,7 +2967,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/CloudFoundryEnv_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/CloudFoundryEnv_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -2988,7 +2988,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/CloudFoundryEnv_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/CloudFoundryEnv_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -3033,14 +3033,14 @@
 					"$(inherited)",
 					"$(SRCROOT)/.build/checkouts/CLibXML2.git-5012515159225181376",
 				);
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/Ji_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/Ji_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-L/usr/local/Cellar/libxml2/2.9.3/lib",
+					"-L/usr/local/Cellar/libxml2/2.9.4_2/lib",
 					"-lxml2",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -I/usr/local/Cellar/libxml2/2.9.3/include/libxml2";
+				OTHER_SWIFT_FLAGS = "$(inherited) -I/usr/local/Cellar/libxml2/2.9.4_2/include/libxml2";
 				PRODUCT_BUNDLE_IDENTIFIER = Ji;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -3061,14 +3061,14 @@
 					"$(inherited)",
 					"$(SRCROOT)/.build/checkouts/CLibXML2.git-5012515159225181376",
 				);
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/Ji_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/Ji_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-L/usr/local/Cellar/libxml2/2.9.3/lib",
+					"-L/usr/local/Cellar/libxml2/2.9.4_2/lib",
 					"-lxml2",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -I/usr/local/Cellar/libxml2/2.9.3/include/libxml2";
+				OTHER_SWIFT_FLAGS = "$(inherited) -I/usr/local/Cellar/libxml2/2.9.4_2/include/libxml2";
 				PRODUCT_BUNDLE_IDENTIFIER = Ji;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
@@ -3086,7 +3086,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/HeliumLogger_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/HeliumLogger_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -3107,7 +3107,7 @@
 					"$(PLATFORM_DIR)/Developer/Library/Frameworks",
 				);
 				HEADER_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/HeliumLogger_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/HeliumLogger_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				OTHER_LDFLAGS = "$(inherited)";
 				OTHER_SWIFT_FLAGS = "$(inherited)";
@@ -3132,7 +3132,7 @@
 					"$(SRCROOT)/.build/checkouts/CCurl.git-8026296523752779197",
 					"$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include",
 				);
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/KituraRequest_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/KituraRequest_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_TEMP_DIR)/SymlinkLibs/";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -3158,7 +3158,7 @@
 					"$(SRCROOT)/.build/checkouts/CCurl.git-8026296523752779197",
 					"$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include",
 				);
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/KituraRequest_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/KituraRequest_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_TEMP_DIR)/SymlinkLibs/";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -3184,18 +3184,18 @@
 					"$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include",
 					"$(SRCROOT)/.build/checkouts/CLibXML2.git-5012515159225181376",
 				);
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/SportsScrapperServer_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/SportsScraperServer_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx @executable_path";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_TEMP_DIR)/SymlinkLibs/";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-L/usr/local/Cellar/libxml2/2.9.3/lib",
+					"-L/usr/local/Cellar/libxml2/2.9.4_2/lib",
 					"-lxml2",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -I/usr/local/Cellar/libxml2/2.9.3/include/libxml2 -Xcc -fmodule-map-file=$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include/module.modulemap";
+				OTHER_SWIFT_FLAGS = "$(inherited) -I/usr/local/Cellar/libxml2/2.9.4_2/include/libxml2 -Xcc -fmodule-map-file=$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include/module.modulemap";
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
-				TARGET_NAME = SportsScrapperServer;
+				TARGET_NAME = SportsScraperServer;
 			};
 			name = Debug;
 		};
@@ -3212,18 +3212,18 @@
 					"$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include",
 					"$(SRCROOT)/.build/checkouts/CLibXML2.git-5012515159225181376",
 				);
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/SportsScrapperServer_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/SportsScraperServer_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx @executable_path";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_TEMP_DIR)/SymlinkLibs/";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-L/usr/local/Cellar/libxml2/2.9.3/lib",
+					"-L/usr/local/Cellar/libxml2/2.9.4_2/lib",
 					"-lxml2",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -I/usr/local/Cellar/libxml2/2.9.3/include/libxml2 -Xcc -fmodule-map-file=$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include/module.modulemap";
+				OTHER_SWIFT_FLAGS = "$(inherited) -I/usr/local/Cellar/libxml2/2.9.4_2/include/libxml2 -Xcc -fmodule-map-file=$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include/module.modulemap";
 				SWIFT_FORCE_DYNAMIC_LINK_STDLIB = YES;
 				SWIFT_FORCE_STATIC_LINK_STDLIB = NO;
-				TARGET_NAME = SportsScrapperServer;
+				TARGET_NAME = SportsScraperServer;
 			};
 			name = Release;
 		};
@@ -3241,20 +3241,20 @@
 					"$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include",
 					"$(SRCROOT)/.build/checkouts/CLibXML2.git-5012515159225181376",
 				);
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/SportsScrapperAPI_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/SportsScraperAPI_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_TEMP_DIR)/SymlinkLibs/";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-L/usr/local/Cellar/libxml2/2.9.3/lib",
+					"-L/usr/local/Cellar/libxml2/2.9.4_2/lib",
 					"-lxml2",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -I/usr/local/Cellar/libxml2/2.9.3/include/libxml2 -Xcc -fmodule-map-file=$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include/module.modulemap";
-				PRODUCT_BUNDLE_IDENTIFIER = SportsScrapperAPI;
+				OTHER_SWIFT_FLAGS = "$(inherited) -I/usr/local/Cellar/libxml2/2.9.4_2/include/libxml2 -Xcc -fmodule-map-file=$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include/module.modulemap";
+				PRODUCT_BUNDLE_IDENTIFIER = SportsScraperAPI;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				TARGET_NAME = SportsScrapperAPI;
+				TARGET_NAME = SportsScraperAPI;
 			};
 			name = Debug;
 		};
@@ -3272,20 +3272,20 @@
 					"$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include",
 					"$(SRCROOT)/.build/checkouts/CLibXML2.git-5012515159225181376",
 				);
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/SportsScrapperAPI_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/SportsScraperAPI_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(TOOLCHAIN_DIR)/usr/lib/swift/macosx";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_TEMP_DIR)/SymlinkLibs/";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-L/usr/local/Cellar/libxml2/2.9.3/lib",
+					"-L/usr/local/Cellar/libxml2/2.9.4_2/lib",
 					"-lxml2",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -I/usr/local/Cellar/libxml2/2.9.3/include/libxml2 -Xcc -fmodule-map-file=$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include/module.modulemap";
-				PRODUCT_BUNDLE_IDENTIFIER = SportsScrapperAPI;
+				OTHER_SWIFT_FLAGS = "$(inherited) -I/usr/local/Cellar/libxml2/2.9.4_2/include/libxml2 -Xcc -fmodule-map-file=$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include/module.modulemap";
+				PRODUCT_BUNDLE_IDENTIFIER = SportsScraperAPI;
 				PRODUCT_MODULE_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				TARGET_NAME = SportsScrapperAPI;
+				TARGET_NAME = SportsScraperAPI;
 			};
 			name = Release;
 		};
@@ -3303,15 +3303,15 @@
 					"$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include",
 					"$(SRCROOT)/.build/checkouts/CLibXML2.git-5012515159225181376",
 				);
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/PicksApp_SportsScrapperTests_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/PicksApp_SportsScrapperTests_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_TEMP_DIR)/SymlinkLibs/";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-L/usr/local/Cellar/libxml2/2.9.3/lib",
+					"-L/usr/local/Cellar/libxml2/2.9.4_2/lib",
 					"-lxml2",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -I/usr/local/Cellar/libxml2/2.9.3/include/libxml2 -Xcc -fmodule-map-file=$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include/module.modulemap";
+				OTHER_SWIFT_FLAGS = "$(inherited) -I/usr/local/Cellar/libxml2/2.9.4_2/include/libxml2 -Xcc -fmodule-map-file=$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include/module.modulemap";
 				TARGET_NAME = "PicksApp-SportsScrapperTests";
 			};
 			name = Debug;
@@ -3330,15 +3330,15 @@
 					"$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include",
 					"$(SRCROOT)/.build/checkouts/CLibXML2.git-5012515159225181376",
 				);
-				INFOPLIST_FILE = SportsScrapper.xcodeproj/PicksApp_SportsScrapperTests_Info.plist;
+				INFOPLIST_FILE = SportsScraper.xcodeproj/PicksApp_SportsScrapperTests_Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "@loader_path/../Frameworks @loader_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_TEMP_DIR)/SymlinkLibs/";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
-					"-L/usr/local/Cellar/libxml2/2.9.3/lib",
+					"-L/usr/local/Cellar/libxml2/2.9.4_2/lib",
 					"-lxml2",
 				);
-				OTHER_SWIFT_FLAGS = "$(inherited) -I/usr/local/Cellar/libxml2/2.9.3/include/libxml2 -Xcc -fmodule-map-file=$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include/module.modulemap";
+				OTHER_SWIFT_FLAGS = "$(inherited) -I/usr/local/Cellar/libxml2/2.9.4_2/include/libxml2 -Xcc -fmodule-map-file=$(SRCROOT)/.build/checkouts/Kitura-net.git--7410958935072501107/Sources/CHTTPParser/include/module.modulemap";
 				TARGET_NAME = "PicksApp-SportsScrapperTests";
 			};
 			name = Release;
@@ -3355,7 +3355,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		OBJ_2 /* Build configuration list for PBXProject "SportsScrapper" */ = {
+		OBJ_2 /* Build configuration list for PBXProject "SportsScraper" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				OBJ_3 /* Debug */,
@@ -3481,7 +3481,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		OBJ_451 /* Build configuration list for PBXNativeTarget "SportsScrapperServer" */ = {
+		OBJ_451 /* Build configuration list for PBXNativeTarget "SportsScraperServer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				OBJ_452 /* Debug */,
@@ -3490,7 +3490,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		OBJ_486 /* Build configuration list for PBXNativeTarget "SportsScrapperAPI" */ = {
+		OBJ_486 /* Build configuration list for PBXNativeTarget "SportsScraperAPI" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				OBJ_487 /* Debug */,
