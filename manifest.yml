@@ -3,8 +3,8 @@ applications:
   memory: 256M
   instances: 1
   domain: mybluemix.net
-  name: Picks-SportsScrapper
-  host: Picks-SportsScrapper
+  name: PicksApp-SportsScrapper
+  host: PicksApp-SportsScrapper
   disk_quota: 1024M
   buildpack: swift_buildpack
   command: apt-get update && apt-get install libxml2-dev && SportsScraperServer
