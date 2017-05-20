@@ -7,4 +7,4 @@ applications:
   host: PicksApp-SportsScrapper
   disk_quota: 1024M
   buildpack: swift_buildpack
-  command: apt-get update && apt-get install libxml2-dev && SportsScraperServer
+  command: apt-get update && apt-get install libxml2-dev; SportsScraperServer
