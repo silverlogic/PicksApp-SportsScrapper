@@ -46,11 +46,12 @@ fileprivate extension SportsScraperRouter {
     /// Sets up all avaliable routes.
     func routeSetup() {
         router.all("/*", middleware: BodyParser())
-        router.get("/schedule/:leagueType/:year/:week", handler: schedule)
+        router.get("/live-schedule/:leagueType/:year/:week", handler: liveSchedule)
+        router.get("/historical-schedule/:leagueType/:year/:week", handler: historicalSchedule)
     }
     
     /**
-        Handler for the schedule route.
+        Handler for the live schedule route.
      
         - Parameters:
             - request: A `RouterRequest` representing the request
@@ -60,7 +61,7 @@ fileprivate extension SportsScraperRouter {
             - next: A closure that gets invoked to handle the next
                     request.
     */
-    func schedule(request: RouterRequest, response: RouterResponse, next: () -> Void) {
+    func liveSchedule(request: RouterRequest, response: RouterResponse, next: () -> Void) {
         do {
             guard let type = request.parameters["leagueType"] else {
                 try response.status(.badRequest).send(json: JSON(["Error": "'leagueType' must be specified in path"])).end()
@@ -90,7 +91,87 @@ fileprivate extension SportsScraperRouter {
             }
             switch leagueType {
             case .nfl:
-                sportsScraper.scheduleNFL(season: season, week: weekInSeason, success: { (results) in
+                if season < 2001 {
+                    do {
+                        try response.status(.badRequest).send(json: JSON(["Error": "'year' must be greater than 2001"])).end()
+                    } catch {
+                        Log.error("Communications error")
+                    }
+                }
+                sportsScraper.liveScheduleNFL(season: season, week: weekInSeason, success: { (results) in
+                    do {
+                        try response.status(.OK).send(json: results).end()
+                    } catch {
+                        Log.error("Communications error")
+                    }
+                }, failure: { (error) in
+                    do {
+                        if let scrapperError = error {
+                            try response.status(.internalServerError).send(json: JSON(["Error": scrapperError.localizedDescription])).end()
+                        } else {
+                            try response.status(.internalServerError).send(json: JSON(["Error": "scrapper error occured"])).end()
+                        }
+                        Log.error("Error has occured with scrapper")
+                    } catch {
+                        Log.error("Communications error")
+                    }
+                })
+                break
+            }
+        } catch {
+            Log.error("Communications error")
+        }
+    }
+    
+    /**
+        Handler for the historical schedule route.
+     
+        - Parameters:
+            - request: A `RouterRequest` representing the request
+                       object sent from the client.
+            - response: A `RouterResponse` representing the response
+                        object to send back to the client.
+            - next: A closure that gets invoked to handle the next
+                    request.
+     */
+    func historicalSchedule(request: RouterRequest, response: RouterResponse, next: () -> Void) {
+        do {
+            guard let type = request.parameters["leagueType"] else {
+                try response.status(.badRequest).send(json: JSON(["Error": "'leagueType' must be specified in path"])).end()
+                Log.error("Path parameter 'leagueType' missing")
+                return
+            }
+            guard let year = request.parameters["year"] else {
+                try response.status(.badRequest).send(json: JSON(["Error": "'year' must be specified in path"])).end()
+                Log.error("Path parameter 'year' missing")
+                return
+            }
+            guard let week = request.parameters["week"]  else {
+                try response.status(.badRequest).send(json: JSON(["Error": "'week' must be specified in path"])).end()
+                Log.error("Path parameter 'week' missing")
+                return
+            }
+            guard let league = Int(type),
+                  let season = Int(year),
+                  let weekInSeason = Int(week) else {
+                    try response.status(.badRequest).end()
+                    Log.error("Error casting path parameters to integers")
+                    return
+            }
+            guard let leagueType = LeagueType(rawValue: league) else {
+                try response.status(.badRequest).send(json: JSON(["Error": "Invalid league type selected"])).end()
+                return
+            }
+            switch leagueType {
+            case .nfl:
+                if season < 1970 {
+                    do {
+                        try response.status(.badRequest).send(json: JSON(["Error": "'year' must be greater than 1970"])).end()
+                    } catch {
+                        Log.error("Communications error")
+                    }
+                }
+                sportsScraper.historicalScheduleNFL(season: season, week: weekInSeason, success: { (results) in
                     do {
                         try response.status(.OK).send(json: results).end()
                     } catch {
