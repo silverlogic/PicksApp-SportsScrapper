@@ -48,6 +48,7 @@ fileprivate extension SportsScraperRouter {
         router.all("/*", middleware: BodyParser())
         router.get("/live-schedule/:leagueType/:year/:week", handler: liveSchedule)
         router.get("/historical-schedule/:leagueType/:year/:week", handler: historicalSchedule)
+        router.get("/current/:leagueType", handler: currentSeasonWeek)
     }
     
     /**
@@ -172,6 +173,60 @@ fileprivate extension SportsScraperRouter {
                     }
                 }
                 sportsScraper.historicalScheduleNFL(season: season, week: weekInSeason, success: { (results) in
+                    do {
+                        try response.status(.OK).send(json: results).end()
+                    } catch {
+                        Log.error("Communications error")
+                    }
+                }, failure: { (error) in
+                    do {
+                        if let scrapperError = error {
+                            try response.status(.internalServerError).send(json: JSON(["Error": scrapperError.localizedDescription])).end()
+                        } else {
+                            try response.status(.internalServerError).send(json: JSON(["Error": "scrapper error occured"])).end()
+                        }
+                        Log.error("Error has occured with scrapper")
+                    } catch {
+                        Log.error("Communications error")
+                    }
+                })
+                break
+            }
+        } catch {
+            Log.error("Communications error")
+        }
+    }
+    
+    /**
+        Handler for the current route.
+     
+        - Parameters:
+            - request: A `RouterRequest` representing the request
+                       object sent from the client.
+            - response: A `RouterResponse` representing the response
+                        object to send back to the client.
+            - next: A closure that gets invoked to handle the next
+                    request.
+    */
+    func currentSeasonWeek(request: RouterRequest, response: RouterResponse, next: () -> Void) {
+        do {
+            guard let type = request.parameters["leagueType"] else {
+                try response.status(.badRequest).send(json: JSON(["Error": "'leagueType' must be specified in path"])).end()
+                Log.error("Path parameter 'leagueType' missing")
+                return
+            }
+            guard let league = Int(type) else {
+                try response.status(.badRequest).end()
+                Log.error("Error casting path parameters to integers")
+                return
+            }
+            guard let leagueType = LeagueType(rawValue: league) else {
+                try response.status(.badRequest).send(json: JSON(["Error": "Invalid league type selected"])).end()
+                return
+            }
+            switch leagueType {
+            case .nfl:
+                sportsScraper.currentSeasonWeek(success: { (results) in
                     do {
                         try response.status(.OK).send(json: results).end()
                     } catch {
