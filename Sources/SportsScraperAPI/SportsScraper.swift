@@ -85,6 +85,37 @@ public final class SportsScraper: SportsScraperAPI {
             }
         }
     }
+    
+    func currentSeasonWeek(success: @escaping (JSON) -> Void, failure: @escaping (Error?) -> Void) {
+        KituraRequest.request(.get, Endpoint.nflHistorical).response { [weak self] (request, response, data, error) in
+            guard let strongSelf = self else {
+                Log.error("Error with object lifetime when geting current NFL season/week")
+                failure(nil)
+                return
+            }
+            guard error == nil else {
+                Log.error("Error perfoming request for current NFL season/week")
+                failure(error)
+                return
+            }
+            guard let responseData = data else {
+                Log.error("Error parsing response data from request for NFL historical schedule")
+                failure(nil)
+                return
+            }
+            guard let html = String(data: responseData, encoding: .utf8) else {
+                Log.error("Error generating HTML for NFL historical schedule")
+                failure(nil)
+                return
+            }
+            do {
+                let results = try strongSelf.parseHTML(html, strategy: .nflCurrent)
+                success(results)
+            } catch {
+                failure(nil)
+            }
+        }
+    }
 }
 
 
@@ -231,7 +262,7 @@ fileprivate extension SportsScraper {
                       let teamAwayScore = awayTeamScore,
                       let status = gameStatus else {
                         Log.error("Values are missing for schedule")
-                        throw ScraperError.conversion
+                        throw ScraperError.missingValues
                 }
                 scheduleDictionary.append(JSON(["date": dateStarted, "homeTeamName": teamHomeName, "homeTeamScore": teamHomeScore, "awayTeamName": teamAwayName, "awayTeamScore": teamAwayScore, "gameStatus": status]))
             }
@@ -316,7 +347,7 @@ fileprivate extension SportsScraper {
                           let teamAwayScore = awayTeamScore,
                           let status = gameStatus else {
                             Log.error("Values are missing for schedule")
-                            throw ScraperError.conversion
+                            throw ScraperError.missingValues
                     }
                     scheduleDictionary.append(JSON(["date": lastDateParsed, "homeTeamName": teamHomeName, "homeTeamScore": teamHomeScore, "awayTeamName": teamAwayName, "awayTeamScore": teamAwayScore, "gameStatus": status]))
                 } else if scheduleTableChild.attributes == [:] {
@@ -355,12 +386,61 @@ fileprivate extension SportsScraper {
                           let teamAwayScore = awayTeamScore,
                           let status = gameStatus else {
                             Log.error("Values are missing for schedule")
-                            throw ScraperError.conversion
+                            throw ScraperError.missingValues
                     }
                     scheduleDictionary.append(JSON(["date": lastDateParsed, "homeTeamName": teamHomeName, "homeTeamScore": teamHomeScore, "awayTeamName": teamAwayName, "awayTeamScore": teamAwayScore, "gameStatus": status]))
                 }
             }
             return(JSON(scheduleDictionary))
+        case .nflCurrent:
+            guard let jiHTML = Ji(htmlString: html) else {
+                Log.error("Can't parse document for NFL current")
+                throw ScraperError.conversion
+            }
+            // Get the season that was set
+            guard let pageNavLabelNodes = jiHTML.xPath("//span[@class='page-nav-label']") else {
+                Log.error("Error geting paga nav labels in NFL current")
+                throw ScraperError.parse
+            }
+            var currentSeason: Int?
+            var currentWeek: Int?
+            for pageNavLabelNode in pageNavLabelNodes {
+                if pageNavLabelNode.children.count == 0 && pageNavLabelNode.content?.characters.count == 4 {
+                    guard let seasonContent = pageNavLabelNode.content else {
+                        Log.error("Error getting season content in NFL current")
+                        throw ScraperError.parse
+                    }
+                    guard let season = Int(seasonContent) else {
+                        Log.error("Error converting season content in NFL current")
+                        throw ScraperError.conversion
+                    }
+                    currentSeason = season
+                }
+            }
+            // Get the week that was set
+            guard let schedulesHeaderTitleNode = jiHTML.xPath("//div[@class='schedules-header-title']")?.first,
+                  let weekNode = schedulesHeaderTitleNode.children.first,
+                  var weekContent = weekNode.content else {
+                    Log.error("Error getting week header node in NFL current")
+                    throw ScraperError.parse
+            }
+            guard let range = weekContent.range(of: "NFL WEEK ")?.upperBound else {
+                Log.error("Error getting upper bound range of week content string in NFL current")
+                throw ScraperError.range
+            }
+            weekContent = weekContent.substring(from: range)
+            guard let week = Int(weekContent) else {
+                Log.error("Error converting week content in NFL current")
+                throw ScraperError.conversion
+            }
+            currentWeek = week
+            // Validate that neccessary content is there
+            guard let seasonCurrent = currentSeason,
+                  let weekCurrent = currentWeek else {
+                    Log.error("Values are missing for NFL current")
+                    throw ScraperError.missingValues
+            }
+            return JSON(["season": seasonCurrent, "week": weekCurrent])
         }
     }
 }
@@ -376,6 +456,8 @@ enum ScraperError: Error {
     case parse
     case conversion
     case objectLifetime
+    case range
+    case missingValues
 }
 
 
@@ -398,4 +480,5 @@ fileprivate enum Endpoint {
 fileprivate enum ParseStrategy {
     case nflLive
     case nflHistorical
+    case nflCurrent
 }

@@ -50,4 +50,19 @@ protocol SportsScraperAPI {
                        indicating the error that occured.
     */
     func historicalScheduleNFL(season: Int, week: Int, success: @escaping (JSON) -> Void, failure: @escaping (Error?) -> Void)
+    
+    /**
+        Retrieves the current season and week for the NFL.
+     
+        - Parameters:
+            - success: A closure that gets invoked when
+                       the requested schedule was retrieved.
+                       Passes a `JSON` to send back to the
+                       client.
+            - failure: A closure that gets invoked when the
+                       requested schedule could not be retrieved.
+                       Passes an `Error?` indicating the error that
+                       occured.
+    */
+    func currentSeasonWeek(success: @escaping (JSON) -> Void, failure: @escaping (Error?) -> Void)
 }
