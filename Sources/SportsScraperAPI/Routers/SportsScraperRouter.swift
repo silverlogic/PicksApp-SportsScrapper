@@ -9,7 +9,6 @@
 import Foundation
 import Kitura
 import LoggerAPI
-import SwiftyJSON
 
 /**
     A class responsible for handling
@@ -65,17 +64,17 @@ fileprivate extension SportsScraperRouter {
     func liveSchedule(request: RouterRequest, response: RouterResponse, next: () -> Void) {
         do {
             guard let type = request.parameters["leagueType"] else {
-                try response.status(.badRequest).send(json: JSON(["Error": "'leagueType' must be specified in path"])).end()
+                try response.status(.badRequest).send(json: APIError.leagueType.json()).end()
                 Log.error("Path parameter 'leagueType' missing")
                 return
             }
             guard let year = request.parameters["year"] else {
-                try response.status(.badRequest).send(json: JSON(["Error": "'year' must be specified in path"])).end()
+                try response.status(.badRequest).send(json: APIError.year.json()).end()
                 Log.error("Path parameter 'year' missing")
                 return
             }
             guard let week = request.parameters["week"]  else {
-                try response.status(.badRequest).send(json: JSON(["Error": "'week' must be specified in path"])).end()
+                try response.status(.badRequest).send(json: APIError.week.json()).end()
                 Log.error("Path parameter 'week' missing")
                 return
             }
@@ -87,14 +86,14 @@ fileprivate extension SportsScraperRouter {
                     return
             }
             guard let leagueType = LeagueType(rawValue: league) else {
-                try response.status(.badRequest).send(json: JSON(["Error": "Invalid league type selected"])).end()
+                try response.status(.badRequest).send(json: APIError.invalidLeague.json()).end()
                 return
             }
             switch leagueType {
             case .nfl:
                 if season < 2001 {
                     do {
-                        try response.status(.badRequest).send(json: JSON(["Error": "'year' must be greater than 2001"])).end()
+                        try response.status(.badRequest).send(json: APIError.minmumYearNotMetLive.json()).end()
                     } catch {
                         Log.error("Communications error")
                     }
@@ -108,9 +107,9 @@ fileprivate extension SportsScraperRouter {
                 }, failure: { (error) in
                     do {
                         if let scrapperError = error {
-                            try response.status(.internalServerError).send(json: JSON(["Error": scrapperError.localizedDescription])).end()
+                            try response.status(.internalServerError).send(json: APIError(errorDescription: scrapperError.localizedDescription).json()).end()
                         } else {
-                            try response.status(.internalServerError).send(json: JSON(["Error": "scrapper error occured"])).end()
+                            try response.status(.internalServerError).send(json: APIError.scrapperError.json()).end()
                         }
                         Log.error("Error has occured with scrapper")
                     } catch {
@@ -138,17 +137,17 @@ fileprivate extension SportsScraperRouter {
     func historicalSchedule(request: RouterRequest, response: RouterResponse, next: () -> Void) {
         do {
             guard let type = request.parameters["leagueType"] else {
-                try response.status(.badRequest).send(json: JSON(["Error": "'leagueType' must be specified in path"])).end()
+                try response.status(.badRequest).send(json: APIError.leagueType.json()).end()
                 Log.error("Path parameter 'leagueType' missing")
                 return
             }
             guard let year = request.parameters["year"] else {
-                try response.status(.badRequest).send(json: JSON(["Error": "'year' must be specified in path"])).end()
+                try response.status(.badRequest).send(json: APIError.year.json()).end()
                 Log.error("Path parameter 'year' missing")
                 return
             }
             guard let week = request.parameters["week"]  else {
-                try response.status(.badRequest).send(json: JSON(["Error": "'week' must be specified in path"])).end()
+                try response.status(.badRequest).send(json: APIError.week.json()).end()
                 Log.error("Path parameter 'week' missing")
                 return
             }
@@ -160,14 +159,14 @@ fileprivate extension SportsScraperRouter {
                     return
             }
             guard let leagueType = LeagueType(rawValue: league) else {
-                try response.status(.badRequest).send(json: JSON(["Error": "Invalid league type selected"])).end()
+                try response.status(.badRequest).send(json: APIError.invalidLeague.json()).end()
                 return
             }
             switch leagueType {
             case .nfl:
                 if season < 1970 {
                     do {
-                        try response.status(.badRequest).send(json: JSON(["Error": "'year' must be greater than 1970"])).end()
+                        try response.status(.badRequest).send(json: APIError.minmumYearNotMetHistorical.json()).end()
                     } catch {
                         Log.error("Communications error")
                     }
@@ -181,9 +180,9 @@ fileprivate extension SportsScraperRouter {
                 }, failure: { (error) in
                     do {
                         if let scrapperError = error {
-                            try response.status(.internalServerError).send(json: JSON(["Error": scrapperError.localizedDescription])).end()
+                            try response.status(.internalServerError).send(json: APIError(errorDescription: scrapperError.localizedDescription).json()).end()
                         } else {
-                            try response.status(.internalServerError).send(json: JSON(["Error": "scrapper error occured"])).end()
+                            try response.status(.internalServerError).send(json: APIError.scrapperError.json()).end()
                         }
                         Log.error("Error has occured with scrapper")
                     } catch {
@@ -211,7 +210,7 @@ fileprivate extension SportsScraperRouter {
     func currentSeasonWeek(request: RouterRequest, response: RouterResponse, next: () -> Void) {
         do {
             guard let type = request.parameters["leagueType"] else {
-                try response.status(.badRequest).send(json: JSON(["Error": "'leagueType' must be specified in path"])).end()
+                try response.status(.badRequest).send(json: APIError.leagueType.json()).end()
                 Log.error("Path parameter 'leagueType' missing")
                 return
             }
@@ -221,7 +220,7 @@ fileprivate extension SportsScraperRouter {
                 return
             }
             guard let leagueType = LeagueType(rawValue: league) else {
-                try response.status(.badRequest).send(json: JSON(["Error": "Invalid league type selected"])).end()
+                try response.status(.badRequest).send(json: APIError.invalidLeague.json()).end()
                 return
             }
             switch leagueType {
@@ -235,9 +234,9 @@ fileprivate extension SportsScraperRouter {
                 }, failure: { (error) in
                     do {
                         if let scrapperError = error {
-                            try response.status(.internalServerError).send(json: JSON(["Error": scrapperError.localizedDescription])).end()
+                            try response.status(.internalServerError).send(json: APIError(errorDescription: scrapperError.localizedDescription).json()).end()
                         } else {
-                            try response.status(.internalServerError).send(json: JSON(["Error": "scrapper error occured"])).end()
+                            try response.status(.internalServerError).send(json: APIError.scrapperError.json()).end()
                         }
                         Log.error("Error has occured with scrapper")
                     } catch {
