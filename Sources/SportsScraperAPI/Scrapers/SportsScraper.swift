@@ -152,8 +152,24 @@ fileprivate extension SportsScraper {
                 var date: String?
                 var homeTeamName: String?
                 var homeTeamScore: Int?
+                var homeTeamRecordWins: Int?
+                var homeTeamRecordLosses: Int?
+                var homeTeamRecordTies: Int?
+                var homeTeamScoreQ1 = 0
+                var homeTeamScoreQ2 = 0
+                var homeTeamScoreQ3 = 0
+                var homeTeamScoreQ4 = 0
+                var homeTeamScoreOT = 0
                 var awayTeamName: String?
                 var awayTeamScore: Int?
+                var awayTeamRecordWins: Int?
+                var awayTeamRecordLosses: Int?
+                var awayTeamRecordTies: Int?
+                var awayTeamScoreQ1 = 0
+                var awayTeamScoreQ2 = 0
+                var awayTeamScoreQ3 = 0
+                var awayTeamScoreQ4 = 0
+                var awayTeamScoreOT = 0
                 var gameStatus: String?
                 let scoreboxChildrenNodes = scoreboxNode.children
                 for scoreboxChildNode in scoreboxChildrenNodes {
@@ -194,17 +210,64 @@ fileprivate extension SportsScraper {
                                                     throw ScraperError.parse
                                             }
                                             awayTeamName = content
+                                            // Retrieve away team record info
+                                            if let teamRecordNode = teamDataChild.children.filter({ $0.attributes == ["class": "team-record"] }).first,
+                                               let recordContent = teamRecordNode.children.first?.content {
+                                                // Parse content for wins, losses and ties
+                                                let trimmedString = recordContent.replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
+                                                let recordStrings = trimmedString.components(separatedBy: "-")
+                                                guard let wins = Int(recordStrings[0]),
+                                                      let losses = Int(recordStrings[1]),
+                                                      let ties = Int(recordStrings[2]) else {
+                                                        Log.error("Error converting records of away team in NFL live")
+                                                        throw ScraperError.conversion
+                                                }
+                                                awayTeamRecordWins = wins
+                                                awayTeamRecordLosses = losses
+                                                awayTeamRecordTies = ties
+                                            } else {
+                                                // This is a future game
+                                                awayTeamRecordWins = 0
+                                                awayTeamRecordLosses = 0
+                                                awayTeamRecordTies = 0
+                                            }
                                         } else if teamDataChild.attributes == ["class": "total-score"] {
                                             // Retrieve away team score
                                             guard let content = teamDataChild.content else {
                                                 Log.error("Error scraping away team score in NFL live")
-                                                    throw ScraperError.parse
+                                                throw ScraperError.parse
                                             }
                                             // Check if the string is '--'
                                             if let awayScore = Int(content) {
                                                 awayTeamScore = awayScore
                                             } else {
                                                 awayTeamScore = 0
+                                            }
+                                        } else if teamDataChild.attributes == ["class": "quarters-score"] {
+                                            // Retrieve scores for each quarter
+                                            let quarterScoreChildren = teamDataChild.children
+                                            for quarterScoreChild in quarterScoreChildren {
+                                                var score = 0
+                                                if let content = quarterScoreChild.content,
+                                                   let quarterScore = Int(content) {
+                                                    score = quarterScore
+                                                }
+                                                if quarterScoreChild.attributes == ["class": "first-qt"] {
+                                                    // Retrieve first quarter score
+                                                    awayTeamScoreQ1 = score
+                                                } else if quarterScoreChild.attributes == ["class": "second-qt"] {
+                                                    // Retrieve second quarter score
+                                                    awayTeamScoreQ2 = score
+                                                } else if quarterScoreChild.attributes == ["class": "third-qt"] {
+                                                    // Retrieve third quarter score
+                                                    awayTeamScoreQ3 = score
+                                                } else if quarterScoreChild.attributes == ["class": "fourth-qt"] {
+                                                    // Retrieve fourth quarter score
+                                                    awayTeamScoreQ4 = score
+                                                } else if quarterScoreChild.attributes == ["class": "ot-qt"] {
+                                                    // Retrieve over time score
+                                                    awayTeamScoreOT = score
+                                                }
                                             }
                                         }
                                     }
@@ -225,6 +288,27 @@ fileprivate extension SportsScraper {
                                                     throw ScraperError.parse
                                             }
                                             homeTeamName = content
+                                            // Retrieve home team record info
+                                            if let teamRecordNode = teamDataChild.children.filter({ $0.attributes == ["class": "team-record"] }).first,
+                                                let recordContent = teamRecordNode.children.first?.content {
+                                                // Parse content for wins, losses and ties
+                                                let trimmedString = recordContent.replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
+                                                let recordStrings = trimmedString.components(separatedBy: "-")
+                                                guard let wins = Int(recordStrings[0]),
+                                                      let losses = Int(recordStrings[1]),
+                                                      let ties = Int(recordStrings[2]) else {
+                                                        Log.error("Error converting records of home team in NFL live")
+                                                        throw ScraperError.conversion
+                                                }
+                                                homeTeamRecordWins = wins
+                                                homeTeamRecordLosses = losses
+                                                homeTeamRecordTies = ties
+                                            } else {
+                                                // This is a future game
+                                                homeTeamRecordWins = 0
+                                                homeTeamRecordLosses = 0
+                                                homeTeamRecordTies = 0
+                                            }
                                         } else if teamDataChild.attributes == ["class": "total-score"] {
                                             // Retrieve home team score
                                             guard let content = teamDataChild.content else {
@@ -236,6 +320,32 @@ fileprivate extension SportsScraper {
                                                 homeTeamScore = homeScore
                                             } else {
                                                 homeTeamScore = 0
+                                            }
+                                        } else if teamDataChild.attributes == ["class": "quarters-score"] {
+                                            // Retrieve scores for each quarter
+                                            let quarterScoreChildren = teamDataChild.children
+                                            for quarterScoreChild in quarterScoreChildren {
+                                                var score = 0
+                                                if let content = quarterScoreChild.content,
+                                                   let quarterScore = Int(content) {
+                                                    score = quarterScore
+                                                }
+                                                if quarterScoreChild.attributes == ["class": "first-qt"] {
+                                                    // Retrieve first quarter score
+                                                    homeTeamScoreQ1 = score
+                                                } else if quarterScoreChild.attributes == ["class": "second-qt"] {
+                                                    // Retrieve second quarter score
+                                                    homeTeamScoreQ2 = score
+                                                } else if quarterScoreChild.attributes == ["class": "third-qt"] {
+                                                    // Retrieve third quarter score
+                                                    homeTeamScoreQ3 = score
+                                                } else if quarterScoreChild.attributes == ["class": "fourth-qt"] {
+                                                    // Retrieve fourth quarter score
+                                                    homeTeamScoreQ4 = score
+                                                } else if quarterScoreChild.attributes == ["class": "ot-qt"] {
+                                                    // Retrieve over time score
+                                                    homeTeamScoreOT = score
+                                                }
                                             }
                                         }
                                     }
@@ -258,13 +368,27 @@ fileprivate extension SportsScraper {
                 guard let dateStarted = date,
                       let teamHomeName = homeTeamName,
                       let teamHomeScore = homeTeamScore,
+                      let teamHomeRecordWins = homeTeamRecordWins,
+                      let teamHomeRecordLosses = homeTeamRecordLosses,
+                      let teamHomeRecordTies = homeTeamRecordTies,
                       let teamAwayName = awayTeamName,
                       let teamAwayScore = awayTeamScore,
+                      let teamAwayRecordWins = awayTeamRecordWins,
+                      let teamAwayRecordLosses = awayTeamRecordLosses,
+                      let teamAwayRecordTies = awayTeamRecordTies,
                       let status = gameStatus else {
                         Log.error("Values are missing for schedule")
                         throw ScraperError.missingValues
                 }
-                scheduleDictionary.append(JSON(["date": dateStarted, "homeTeamName": teamHomeName, "homeTeamScore": teamHomeScore, "awayTeamName": teamAwayName, "awayTeamScore": teamAwayScore, "gameStatus": status]))
+                // Construct schedule response
+                let awayTeamRecord = ["wins": teamAwayRecordWins, "losses": teamAwayRecordLosses, "ties": teamAwayRecordTies]
+                let awayTeamScoreByQuarter = ["Q1": awayTeamScoreQ1, "Q2": awayTeamScoreQ2, "Q3": awayTeamScoreQ3, "Q4": awayTeamScoreQ4, "OT": awayTeamScoreOT]
+                let awayTeam: [String: Any] = ["teamName": teamAwayName, "record": awayTeamRecord, "score": teamAwayScore, "scoreByQuarter": awayTeamScoreByQuarter]
+                let homeTeamRecord = ["wins": teamHomeRecordWins, "losses": teamHomeRecordLosses, "ties": teamHomeRecordTies]
+                let homeTeamScoreByQuarter = ["Q1": homeTeamScoreQ1, "Q2": homeTeamScoreQ2, "Q3": homeTeamScoreQ3, "Q4": homeTeamScoreQ4, "OT": homeTeamScoreOT]
+                let homeTeam: [String: Any] = ["teamName": teamHomeName, "record": homeTeamRecord, "score": teamHomeScore, "scoreByQuarter": homeTeamScoreByQuarter]
+                let schedule = JSON(["date": dateStarted, "homeTeam": homeTeam, "awayTeam": awayTeam, "gameStatus": status])
+                scheduleDictionary.append(schedule)
             }
             return JSON(scheduleDictionary)
         case .nflHistorical:
