@@ -53,7 +53,7 @@ In the terminal, do `$ docker-compose up`.
 ## Roadmap
 Here is a roadmap of features that we will like to implement overtime:
 
-- [ ] Add granualar data to `live-schedule` route
+- [x] Add granualar data to `live-schedule` route
 - [ ] Caching of all past schedules
 - [ ] Travis CI setup
 - [ ] Implement a test suite with database interactions once caching is implemented
