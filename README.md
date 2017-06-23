@@ -1,4 +1,6 @@
 # PicksApp-SportsScrapper
+[![Build Status](https://travis-ci.org/silverlogic/PicksApp-SportsScrapper.svg?branch=master)](https://travis-ci.org/silverlogic/PicksApp-SportsScrapper)
+
 A Server Side Swift app powered by Kitura for scraping different sport leagues
 
 ## Accessing the API.
