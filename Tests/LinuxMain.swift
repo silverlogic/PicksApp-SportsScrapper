@@ -1,6 +1,6 @@
 import XCTest
-@testable import PicksApp_SportsScrapperTests
+@testable import SportsScraperAPITests
 
 XCTMain([
-    testCase(PicksApp_SportsScrapperTests.allTests),
+    testCase(SportsScrapperTests.allTests)
 ])
