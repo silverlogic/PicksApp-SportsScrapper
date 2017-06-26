@@ -1,14 +1,29 @@
-//
-//  SportsScrapperController.swift
-//  PicksApp-SportsScrapper
-//
-//  Created by Emanuel  Guerrero on 5/19/17.
-//
-//
+/**
+* MIT License
+*
+* Copyright (c) 2017 The SilverLogic
+*
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+*
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+*
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*/
 
 import Foundation
 import Kitura
-import LoggerAPI
 
 /**
     A class responsible for handling
@@ -65,28 +80,29 @@ fileprivate extension SportsScraperRouter {
         do {
             guard let type = request.parameters["leagueType"] else {
                 try response.status(.badRequest).send(json: APIError.leagueType.json()).end()
-                Log.error("Path parameter 'leagueType' missing")
+                APILogger.shared.log(message: APIError.leagueType.errorDesciption, logLevel: .error)
                 return
             }
             guard let year = request.parameters["year"] else {
                 try response.status(.badRequest).send(json: APIError.year.json()).end()
-                Log.error("Path parameter 'year' missing")
+                APILogger.shared.log(message: APIError.year.errorDesciption, logLevel: .error)
                 return
             }
             guard let week = request.parameters["week"]  else {
                 try response.status(.badRequest).send(json: APIError.week.json()).end()
-                Log.error("Path parameter 'week' missing")
+                APILogger.shared.log(message: APIError.week.errorDesciption, logLevel: .error)
                 return
             }
             guard let league = Int(type),
                   let season = Int(year),
                   let weekInSeason = Int(week) else {
                     try response.status(.badRequest).end()
-                    Log.error("Error casting path parameters to integers")
+                    APILogger.shared.log(message: "Error casting path parameters to integers", logLevel: .error)
                     return
             }
             guard let leagueType = LeagueType(rawValue: league) else {
                 try response.status(.badRequest).send(json: APIError.invalidLeague.json()).end()
+                APILogger.shared.log(message: APIError.invalidLeague.errorDesciption, logLevel: .error)
                 return
             }
             switch leagueType {
@@ -95,14 +111,14 @@ fileprivate extension SportsScraperRouter {
                     do {
                         try response.status(.badRequest).send(json: APIError.minmumYearNotMetLive.json()).end()
                     } catch {
-                        Log.error("Communications error")
+                        APILogger.shared.log(message: "Communications error", logLevel: .error)
                     }
                 }
                 sportsScraper.liveScheduleNFL(season: season, week: weekInSeason, success: { (results) in
                     do {
                         try response.status(.OK).send(json: results).end()
                     } catch {
-                        Log.error("Communications error")
+                        APILogger.shared.log(message: "Communications error", logLevel: .error)
                     }
                 }, failure: { (error) in
                     do {
@@ -111,15 +127,15 @@ fileprivate extension SportsScraperRouter {
                         } else {
                             try response.status(.internalServerError).send(json: APIError.scrapperError.json()).end()
                         }
-                        Log.error("Error has occured with scrapper")
+                        APILogger.shared.log(message: APIError.scrapperError.errorDesciption, logLevel: .error)
                     } catch {
-                        Log.error("Communications error")
+                        APILogger.shared.log(message: "Communications error", logLevel: .error)
                     }
                 })
                 break
             }
         } catch {
-            Log.error("Communications error")
+            APILogger.shared.log(message: "Communications error", logLevel: .error)
         }
     }
     
@@ -138,28 +154,29 @@ fileprivate extension SportsScraperRouter {
         do {
             guard let type = request.parameters["leagueType"] else {
                 try response.status(.badRequest).send(json: APIError.leagueType.json()).end()
-                Log.error("Path parameter 'leagueType' missing")
+                APILogger.shared.log(message: APIError.leagueType.errorDesciption, logLevel: .error)
                 return
             }
             guard let year = request.parameters["year"] else {
                 try response.status(.badRequest).send(json: APIError.year.json()).end()
-                Log.error("Path parameter 'year' missing")
+                APILogger.shared.log(message: APIError.year.errorDesciption, logLevel: .error)
                 return
             }
             guard let week = request.parameters["week"]  else {
                 try response.status(.badRequest).send(json: APIError.week.json()).end()
-                Log.error("Path parameter 'week' missing")
+                APILogger.shared.log(message: APIError.week.errorDesciption, logLevel: .error)
                 return
             }
             guard let league = Int(type),
                   let season = Int(year),
                   let weekInSeason = Int(week) else {
                     try response.status(.badRequest).end()
-                    Log.error("Error casting path parameters to integers")
+                    APILogger.shared.log(message: "Error casting path parameters to integers", logLevel: .error)
                     return
             }
             guard let leagueType = LeagueType(rawValue: league) else {
                 try response.status(.badRequest).send(json: APIError.invalidLeague.json()).end()
+                APILogger.shared.log(message: APIError.invalidLeague.errorDesciption, logLevel: .error)
                 return
             }
             switch leagueType {
@@ -168,14 +185,14 @@ fileprivate extension SportsScraperRouter {
                     do {
                         try response.status(.badRequest).send(json: APIError.minmumYearNotMetHistorical.json()).end()
                     } catch {
-                        Log.error("Communications error")
+                        APILogger.shared.log(message: "Communications error", logLevel: .error)
                     }
                 }
                 sportsScraper.historicalScheduleNFL(season: season, week: weekInSeason, success: { (results) in
                     do {
                         try response.status(.OK).send(json: results).end()
                     } catch {
-                        Log.error("Communications error")
+                        APILogger.shared.log(message: "Communications error", logLevel: .error)
                     }
                 }, failure: { (error) in
                     do {
@@ -184,15 +201,15 @@ fileprivate extension SportsScraperRouter {
                         } else {
                             try response.status(.internalServerError).send(json: APIError.scrapperError.json()).end()
                         }
-                        Log.error("Error has occured with scrapper")
+                        APILogger.shared.log(message: APIError.scrapperError.errorDesciption, logLevel: .error)
                     } catch {
-                        Log.error("Communications error")
+                        APILogger.shared.log(message: "Communications error", logLevel: .error)
                     }
                 })
                 break
             }
         } catch {
-            Log.error("Communications error")
+            APILogger.shared.log(message: "Communications error", logLevel: .error)
         }
     }
     
@@ -211,16 +228,17 @@ fileprivate extension SportsScraperRouter {
         do {
             guard let type = request.parameters["leagueType"] else {
                 try response.status(.badRequest).send(json: APIError.leagueType.json()).end()
-                Log.error("Path parameter 'leagueType' missing")
+                APILogger.shared.log(message: APIError.leagueType.errorDesciption, logLevel: .error)
                 return
             }
             guard let league = Int(type) else {
                 try response.status(.badRequest).end()
-                Log.error("Error casting path parameters to integers")
+                APILogger.shared.log(message: "Error casting path parameters to integers", logLevel: .error)
                 return
             }
             guard let leagueType = LeagueType(rawValue: league) else {
                 try response.status(.badRequest).send(json: APIError.invalidLeague.json()).end()
+                APILogger.shared.log(message: APIError.invalidLeague.errorDesciption, logLevel: .error)
                 return
             }
             switch leagueType {
@@ -229,7 +247,7 @@ fileprivate extension SportsScraperRouter {
                     do {
                         try response.status(.OK).send(json: results).end()
                     } catch {
-                        Log.error("Communications error")
+                        APILogger.shared.log(message: "Communications error", logLevel: .error)
                     }
                 }, failure: { (error) in
                     do {
@@ -238,15 +256,15 @@ fileprivate extension SportsScraperRouter {
                         } else {
                             try response.status(.internalServerError).send(json: APIError.scrapperError.json()).end()
                         }
-                        Log.error("Error has occured with scrapper")
+                        APILogger.shared.log(message: APIError.scrapperError.errorDesciption, logLevel: .error)
                     } catch {
-                        Log.error("Communications error")
+                        APILogger.shared.log(message: "Communications error", logLevel: .error)
                     }
                 })
                 break
             }
         } catch {
-            Log.error("Communications error")
+            APILogger.shared.log(message: "Communications error", logLevel: .error)
         }
     }
 }

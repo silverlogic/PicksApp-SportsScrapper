@@ -1,3 +1,10 @@
+db:
+  image: couchdb
+  ports:
+    - "5984:5984"
+  environment:
+    - COUCHDB_USER=admin
+    - COUCHDB_PASSWORD=password
 app:
   image: ibmcom/swift-ubuntu
   ports:
@@ -5,3 +12,5 @@ app:
   volumes:
     - .:/root/Picks-SportsScrapper
   command: bash -c " apt-get update && apt-get install libxml2-dev && cd /root/Picks-SportsScrapper && swift build --clean && swift build --configuration release && ./.build/release/SportsScraperServer"
+  links: 
+    - db:localhost

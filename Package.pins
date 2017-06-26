@@ -50,6 +50,12 @@
       "version": "1.7.3"
     },
     {
+      "package": "Kitura-CouchDB",
+      "reason": null,
+      "repositoryURL": "https://github.com/IBM-Swift/Kitura-CouchDB.git",
+      "version": "1.7.0"
+    },
+    {
       "package": "Kitura-net",
       "reason": null,
       "repositoryURL": "https://github.com/IBM-Swift/Kitura-net.git",
@@ -77,13 +83,13 @@
       "package": "OpenSSL",
       "reason": null,
       "repositoryURL": "https://github.com/IBM-Swift/OpenSSL.git",
-      "version": "0.3.3"
+      "version": "0.3.5"
     },
     {
       "package": "Signals",
       "reason": null,
       "repositoryURL": "https://github.com/IBM-Swift/BlueSignals.git",
-      "version": "0.9.45"
+      "version": "0.9.47"
     },
     {
       "package": "Socket",
@@ -96,6 +102,18 @@
       "reason": null,
       "repositoryURL": "https://github.com/IBM-Swift/BlueSSLService.git",
       "version": "0.12.34"
+    },
+    {
+      "package": "SwiftyBeaver",
+      "reason": null,
+      "repositoryURL": "https://github.com/SwiftyBeaver/SwiftyBeaver.git",
+      "version": "1.3.0"
+    },
+    {
+      "package": "SwiftyBeaverKitura",
+      "reason": null,
+      "repositoryURL": "https://github.com/SwiftyBeaver/SwiftyBeaver-Kitura.git",
+      "version": "1.0.0"
     },
     {
       "package": "SwiftyJSON",
