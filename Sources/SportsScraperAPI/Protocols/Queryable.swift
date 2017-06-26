@@ -23,30 +23,11 @@
 */
 
 import Foundation
-import Kitura
-import SportsScraperAPI
 
-APILogger.shared.log(message: "Beginning server setup", logLevel: .info)
-let sportsScrapper = SportsScraper()
-let sportsScraperRouter = SportsScraperRouter(backend: sportsScrapper)
-let configuration = APIConfiguration()
-let database: DatabaseConnector
-do {
-    APILogger.shared.log(message: "Attempting init with CF environment",
-                         logLevel: .info)
-    let service = try configuration.databaseConfiguration()
-    database = DatabaseConnector(service: service)
-    // @TODO: Inject database into scraper
-} catch {
-    APILogger.shared.log(message: "Could not retrieve CF env: init with defaults",
-                         logLevel: .info)
-    database = DatabaseConnector()
-    // @TODO: Inject database into scraper
+/**
+    A protocol that defines how schedules can be
+    queried from the database.
+*/
+protocol Queryable: class  {
+    static var queryingViews: [[String: Any]] { get }
 }
-APILogger.shared.log(message: "Assigned port \(configuration.port)",
-                     logLevel: .verbose)
-APILogger.shared.log(message: "REST API can be accessed at \(configuration.url)",
-                     logLevel: .info)
-Kitura.addHTTPServer(onPort: configuration.port,
-                     with: sportsScraperRouter.router)
-Kitura.run()

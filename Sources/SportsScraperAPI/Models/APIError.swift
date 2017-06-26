@@ -49,7 +49,7 @@ struct APIError {
 
 
 // MARK: - ToJSON
-extension APIError: ToJSON {
+extension APIError: Serializable {
     func json() -> JSON {
         return JSON(["Error": errorDesciption])
     }

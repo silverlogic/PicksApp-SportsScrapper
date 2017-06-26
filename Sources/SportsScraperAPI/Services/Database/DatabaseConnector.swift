@@ -34,9 +34,9 @@ import CloudFoundryEnv
 
 /**
     A class responsible for interacting with
-    the database
+    the database.
 */
-public final class Database {
+public final class DatabaseConnector {
     
     // MARK: - Internal Class Attributes
     static let defaultDBHost = "localhost"
@@ -55,7 +55,7 @@ public final class Database {
     // MARK: - Initializers
     
     /**
-        Initializes an instance of `Database` with connection
+        Initializes an instance of `DatabaseConnector` with connection
         properties.
      
         - Parameters:
@@ -68,12 +68,12 @@ public final class Database {
             - databasePassword: A `String` representing the CouchDB admin
                                 password.
     */
-    public init(databaseName: String = Database.defaultDBName,
-                host: String = Database.defaultDBHost,
-                port: Int16 = Database.defaultDBPort,
-                databaseUsername: String = Database.defaultUsername,
-                databasePassword: String = Database.defaultPassword) {
-        let secured = host == Database.defaultDBHost ? false : true
+    public init(databaseName: String = DatabaseConnector.defaultDBName,
+                host: String = DatabaseConnector.defaultDBHost,
+                port: Int16 = DatabaseConnector.defaultDBPort,
+                databaseUsername: String = DatabaseConnector.defaultUsername,
+                databasePassword: String = DatabaseConnector.defaultPassword) {
+        let secured = host == DatabaseConnector.defaultDBHost ? false : true
         connectionProperties = ConnectionProperties(host: host, port: port,
                                                     secured: secured,
                                                     username: databaseUsername,
@@ -83,8 +83,8 @@ public final class Database {
     }
     
     /**
-        Convenience initializer that intializes an instance of `Database`
-        with a service.
+        Convenience initializer that intializes an instance of 
+        `DatabaseConnector` with a service.
      
         - Parameter service: A `Service` representing the database service being
                              used with Bluemix.
@@ -96,15 +96,66 @@ public final class Database {
            let password = credentials["password"] as? String,
            let tempPort = credentials["port"] as? Int {
             let port = Int16(tempPort)
-            APILogger.shared.log(message: "Using provided credentials from service", logLevel: .info)
-            self.init(databaseName: Database.defaultDBName,
+            APILogger.shared.log(message: "Using provided credentials from service",
+                                 logLevel: .info)
+            self.init(databaseName: DatabaseConnector.defaultDBName,
                       host: host,
                       port: port,
                       databaseUsername: username,
                       databasePassword: password)
         } else {
-            APILogger.shared.log(message: "Using development credentials", logLevel: .info)
+            APILogger.shared.log(message: "Using development credentials",
+                                 logLevel: .info)
             self.init()
         }
+    }
+    
+    
+    // MARK: - Private Instance Methods
+    
+    /// Sets up the database.
+    private func setupDatabase() {
+        let couchClient = CouchDBClient(connectionProperties: connectionProperties)
+        couchClient.dbExists(databaseName) { (exists, error) in
+            guard error == nil else {
+                APILogger.shared.log(message: error!.localizedDescription,
+                                     logLevel: .error)
+                return
+            }
+            if exists {
+                APILogger.shared.log(message: "\(self.databaseName) already exists",
+                                     logLevel: .info)
+            } else {
+                APILogger.shared.log(message: "\(self.databaseName) doesn't exist. Creating...",
+                                     logLevel: .warning)
+                couchClient.createDB(self.databaseName, callback: { (database, error) in
+                    guard let createdDatabase = database else {
+                        APILogger.shared.log(message: "Error creating \(self.databaseName)",
+                                             logLevel: .error)
+                        APILogger.shared.log(message: "Error: \(error!.localizedDescription)",
+                                             logLevel: .error)
+                        return
+                    }
+                    self.setupDatabaseDesign(database: createdDatabase)
+                })
+            }
+        }
+    }
+    
+    /**
+        Sets up the database design document to use for the database.
+     
+        - Parameter database: A `Database` representing the database to create
+                              the design document for.
+    */
+    private func setupDatabaseDesign(database: Database) {
+        let databaseDesign: [String: Any] = [
+            "_id": "-design/\(databasDesignName)",
+            "views": [
+                "all_documents": [
+                    "map": "function(doc) { emit(doc._id, [doc._id, doc._rev]); }"
+                ]
+            ]
+        ]
     }
 }
