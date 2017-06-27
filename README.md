@@ -50,16 +50,21 @@ Now that Docker has been setup, we can now begin setting up the repo on our loca
 * The database admin can be accessed at `http://localhost:5984/_utils`.
 
 ### Running The Server In OSX
-When running the server on your local machine using OSX, you first need to start up the database. You can do that in a terminal by doing `$ docker run --name couchdb -p 5984:5984 -e COUCHDB_USER="admin" -e COUCHDB_PASSWORD="password" couchdb` when running the database for the very first time. This will start CouchDB. By default, an admin user will be set for you. If you then want to run the database again, you would do `$ docker start couchdb`. Then to stop it, do `$ docker stop couchdb`. Once the database is running, in Xcode, switch the scheme to `SportsScraperServer`. Then do command r to run the server.
+When running the server on your local machine using OSX, you first need to start up the database. You can do that in a terminal by doing `$ docker run --name couchdb -p 5984:5984 -e COUCHDB_USER="admin" -e COUCHDB_PASSWORD="password" couchdb` when running the database for the very first time. This will start CouchDB. By default, an admin user will be set for you. If you then want to run the database again, you would do `$ docker start couchdb`. Then to stop it, do `$ docker stop couchdb`. To start the database and enabling logging, do `$ docker start couchdb -a`. Once the database is running, in Xcode, switch the scheme to `SportsScraperServer`. Then do command r to run the server.
 
 ### Running The Server In Linux
 When implementing new features, you want to make sure that the implementation also works in a Linux environment, since the Foundation APIs that you would use in a Cloud Foundary application aren't fully avaliable. To test in Linux locally on your machine, access your terminal and do `$ docker-compose up`. This will start CouchDB as well as the server.
+
+## Runing Tests
+
+1. First run the database. Refer to section `Running The Server in OSX` in README on how to do that.
+1. Then in Xcode, on the keyboard do command u.
 
 ## Roadmap
 Here is a roadmap of features that we will like to implement overtime:
 
 - [x] Add granualar data to `live-schedule` route
-- [ ] Caching of all past schedules
-- [ ] Travis CI setup
-- [ ] Implement a test suite with database interactions once caching is implemented
+- [x] Caching of all past schedules
+- [x] Travis CI setup
+- [x] Implement a test suite with database interactions once caching is implemented
 - [ ] Require authentication for accessing routes
