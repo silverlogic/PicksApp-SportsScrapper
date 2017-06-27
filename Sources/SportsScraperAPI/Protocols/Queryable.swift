@@ -29,5 +29,5 @@ import Foundation
     queried from the database.
 */
 protocol Queryable: class  {
-    static var queryingViews: [[String: Any]] { get }
+    static var allDocumentsViewName: String { get }
 }

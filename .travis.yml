@@ -1,9 +1,14 @@
 os:
-  - osx
+  - linux
 language: generic
+services:
+  - docker
 sudo: required
 dist: trusty
 osx_image: xcode8.3
+before_install:
+  - docker pull ibmcom/swift-ubuntu
+  - docker pull couchdb
+  - docker image ls
 script:
-  - swift build
-  - swift test
+  - docker-compose -f docker-test.yml up
