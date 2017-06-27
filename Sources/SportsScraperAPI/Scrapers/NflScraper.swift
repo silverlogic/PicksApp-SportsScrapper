@@ -23,145 +23,70 @@
 */
 
 import Foundation
-import LoggerAPI
 import KituraRequest
 import Ji
 import SwiftyJSON
 
 /**
-    A class responsible for perfoming scrapping
-    operations to different sport leagues. It
-    conforms to `SportsScrapperAPI`.
+    A class that conforms to `Scrapable` and implements
+    behavior for scraping the NFL website for schedules.
 */
-public final class SportsScraper: SportsScraperAPI {
+final class NflScraper: Scrapable {
     
-    /// Initializes an instance of `SportsScrapper`.
-    public init() {}
+    // MARK: - Private Instance Methods
+    
+    /// A season in the NFL. Schedules will be retrieved based on the season.
+    private let season: Int
+    
+    /// A week in `season`. Schedules will be retrieved based on the week.
+    private let week: Int
     
     
-    // MARK: - SportsScrapperAPI Methods
-    func liveScheduleNFL(season: Int, week: Int, success: @escaping (JSON) -> Void, failure: @escaping (Error?) -> Void) {
-        KituraRequest.request(.get, Endpoint.nflLive + "\(season)/REG\(week)").response { [weak self] (request, response, data, error) in
-            guard let strongSelf = self else {
-                Log.error("Error with object lifetime when geting NFL live schedule")
-                failure(nil)
-                return
-            }
-            guard error == nil else {
-                Log.error("Error perfoming request for NFL live schedule")
-                failure(error)
-                return
-            }
-            guard let responseData = data else {
-                Log.error("Error parsing response data from request for NFL live schedule")
-                failure(nil)
-                return
-            }
-            guard let html = String(data: responseData, encoding: .utf8) else {
-                Log.error("Error generating HTML for NFL live schedule")
-                failure(nil)
-                return
-            }
-            do {
-                let results = try strongSelf.parseHTML(html, strategy: .nflLive)
-                success(results)
-            } catch {
-                failure(nil)
-            }
-        }
-    }
-    
-    func historicalScheduleNFL(season: Int, week: Int, success: @escaping (JSON) -> Void, failure: @escaping (Error?) -> Void) {
-        KituraRequest.request(.get, Endpoint.nflHistorical + "\(season)/REG\(week)").response { [weak self] (request, response, data, error) in
-            guard let strongSelf = self else {
-                Log.error("Error with object lifetime when geting NFL historical schedule")
-                failure(nil)
-                return
-            }
-            guard error == nil else {
-                Log.error("Error perfoming request for NFL historical schedule")
-                failure(error)
-                return
-            }
-            guard let responseData = data else {
-                Log.error("Error parsing response data from request for NFL historical schedule")
-                failure(nil)
-                return
-            }
-            guard let html = String(data: responseData, encoding: .utf8) else {
-                Log.error("Error generating HTML for NFL historical schedule")
-                failure(nil)
-                return
-            }
-            do {
-                let results = try strongSelf.parseHTML(html, strategy: .nflHistorical)
-                success(results)
-            } catch {
-                failure(nil)
-            }
-        }
-    }
-    
-    func currentSeasonWeek(success: @escaping (JSON) -> Void, failure: @escaping (Error?) -> Void) {
-        KituraRequest.request(.get, Endpoint.nflHistorical).response { [weak self] (request, response, data, error) in
-            guard let strongSelf = self else {
-                Log.error("Error with object lifetime when geting current NFL season/week")
-                failure(nil)
-                return
-            }
-            guard error == nil else {
-                Log.error("Error perfoming request for current NFL season/week")
-                failure(error)
-                return
-            }
-            guard let responseData = data else {
-                Log.error("Error parsing response data from request for NFL historical schedule")
-                failure(nil)
-                return
-            }
-            guard let html = String(data: responseData, encoding: .utf8) else {
-                Log.error("Error generating HTML for NFL historical schedule")
-                failure(nil)
-                return
-            }
-            do {
-                let results = try strongSelf.parseHTML(html, strategy: .nflCurrent)
-                success(results)
-            } catch {
-                failure(nil)
-            }
-        }
-    }
-}
-
-
-// MARK: - Private Instance Methods
-fileprivate extension SportsScraper {
+    // MARK: - Initializers
     
     /**
-        Takes HTML given from a request and parses it for a list of teams
+        Initializes an instance of `NflScraper`.
      
-        - Throws: A `ScraperError` if the HTML provided can't be parsed.
-     
-        - Parameters: 
-            - html: A `String` representing the html received from
-                    a request.
-            - strategy: A `ParseStrategy` representing the parsing strategy
-                        to use.
-     
-        - Returns: A `JSON` object representing the response to send back
-                   to the client.
+        - Parameters:
+            - season: A `Int` representing a season in the NFL.
+            - week: A `Int` representing the week in `season`.
     */
-    func parseHTML(_ html: String, strategy: ParseStrategy) throws -> JSON {
-        switch strategy {
-        case .nflLive:
+    init(season: Int, week: Int) {
+        self.season = season
+        self.week = week
+    }
+    
+    
+    // MARK: - Scrapable
+    func scrapeLiveSchedule(success: @escaping ([JSON]) -> Void, failure: @escaping (Error?) -> Void) {
+        KituraRequest.request(.get, Endpoint.nflLive + "\(season)/REG\(week)").response { (request, response, data, error) in
+            guard error == nil else {
+                APILogger.shared.log(message: "Error perfoming request for NFL live schedule",
+                                     logLevel: .error)
+                failure(error)
+                return
+            }
+            guard let responseData = data else {
+                APILogger.shared.log(message: "Error parsing response data from request for NFL live schedule",
+                                     logLevel: .error)
+                failure(nil)
+                return
+            }
+            guard let html = String(data: responseData, encoding: .utf8) else {
+                APILogger.shared.log(message: "Error generating HTML for NFL live schedule",
+                                     logLevel: .error)
+                failure(nil)
+                return
+            }
             guard let jiHTML = Ji(htmlString: html) else {
-                Log.error("Can't parse document for NFL live")
-                throw ScraperError.conversion
+                APILogger.shared.log(message: "Can't parse document for NFL live", logLevel: .error)
+                failure(nil)
+                return
             }
             guard let scoreboxNodes = jiHTML.xPath("//div[@class='new-score-box-wrapper']") else {
-                Log.error("Can't get elements for NFL live")
-                throw ScraperError.parse
+                APILogger.shared.log(message: "Can't get elements for NFL live", logLevel: .error)
+                failure(nil)
+                return
             }
             var scheduleDictionary = [JSON]()
             for scoreboxNode in scoreboxNodes {
@@ -192,10 +117,13 @@ fileprivate extension SportsScraper {
                     if scoreboxChildNode.attributes == ["class": "new-score-box-heading"] {
                         // Retrieve date of the game
                         guard let scoreBoxHeadingChildren = scoreboxChildNode.children.first?.children,
-                              let dateNode = scoreBoxHeadingChildren.filter({ $0.attributes == ["class": "date", "title": "Date Aired"] || $0.attributes == ["class": "date", "title": "Date Airing"]}).first,
+                              let dateNode = scoreBoxHeadingChildren.filter({ $0.attributes == ["class": "date", "title": "Date Aired"] ||
+                                             $0.attributes == ["class": "date", "title": "Date Airing"]}).first,
                               let content = dateNode.content else {
-                                Log.error("Error scraping date for NFL live")
-                                throw ScraperError.parse
+                                APILogger.shared.log(message: "Error scraping date for NFL live",
+                                                     logLevel: .error)
+                                failure(nil)
+                                return
                         }
                         date = content
                     } else {
@@ -206,15 +134,19 @@ fileprivate extension SportsScraper {
                             if newScoreBoxChild.attributes == ["class": "team-wrapper"] {
                                 // Retrieve home and away teams
                                 guard let teamWrapperChild = newScoreBoxChild.children.first else {
-                                    Log.error("Error scraping score box for NFL live")
-                                    throw ScraperError.parse
+                                    APILogger.shared.log(message: "Error scraping score box for NFL live",
+                                                         logLevel: .error)
+                                    failure(nil)
+                                    return
                                 }
                                 if teamWrapperChild.attributes == ["class": "away-team"] {
                                     // Retrieve away team info
                                     let awayTeamChildren = teamWrapperChild.children
                                     guard let teamDataNode = awayTeamChildren.filter({ $0.attributes == ["class": "team-data"] }).first else {
-                                        Log.error("Error scraping team data for away team in NFL live")
-                                        throw ScraperError.parse
+                                        APILogger.shared.log(message: "Error scraping team data for away team in NFL live",
+                                                             logLevel: .error)
+                                        failure(nil)
+                                        return
                                     }
                                     let teamDataChildren = teamDataNode.children
                                     for teamDataChild in teamDataChildren {
@@ -222,8 +154,10 @@ fileprivate extension SportsScraper {
                                             // Retrieve away team name
                                             guard let teamNameNode = teamDataChild.children.filter({ $0.attributes == ["class": "team-name"] }).first,
                                                   let content = teamNameNode.content else {
-                                                    Log.error("Error scraping away team name in NFL live")
-                                                    throw ScraperError.parse
+                                                    APILogger.shared.log(message: "Error scraping away team name in NFL live",
+                                                                         logLevel: .error)
+                                                    failure(nil)
+                                                    return
                                             }
                                             awayTeamName = content
                                             // Retrieve away team record info
@@ -235,8 +169,10 @@ fileprivate extension SportsScraper {
                                                 guard let wins = Int(recordStrings[0]),
                                                       let losses = Int(recordStrings[1]),
                                                       let ties = Int(recordStrings[2]) else {
-                                                        Log.error("Error converting records of away team in NFL live")
-                                                        throw ScraperError.conversion
+                                                        APILogger.shared.log(message: "Error scraping away team name in NFL live",
+                                                                             logLevel: .error)
+                                                        failure(nil)
+                                                        return
                                                 }
                                                 awayTeamRecordWins = wins
                                                 awayTeamRecordLosses = losses
@@ -250,8 +186,10 @@ fileprivate extension SportsScraper {
                                         } else if teamDataChild.attributes == ["class": "total-score"] {
                                             // Retrieve away team score
                                             guard let content = teamDataChild.content else {
-                                                Log.error("Error scraping away team score in NFL live")
-                                                throw ScraperError.parse
+                                                APILogger.shared.log(message: "Error scraping away team score in NFL live",
+                                                                     logLevel: .error)
+                                                failure(nil)
+                                                return
                                             }
                                             // Check if the string is '--'
                                             if let awayScore = Int(content) {
@@ -265,7 +203,7 @@ fileprivate extension SportsScraper {
                                             for quarterScoreChild in quarterScoreChildren {
                                                 var score = 0
                                                 if let content = quarterScoreChild.content,
-                                                   let quarterScore = Int(content) {
+                                                    let quarterScore = Int(content) {
                                                     score = quarterScore
                                                 }
                                                 if quarterScoreChild.attributes == ["class": "first-qt"] {
@@ -291,8 +229,10 @@ fileprivate extension SportsScraper {
                                     // Retrieve home team info
                                     let homeTeamChildren = teamWrapperChild.children
                                     guard let teamDataNode = homeTeamChildren.filter({ $0.attributes == ["class": "team-data"] }).first else {
-                                        Log.error("Error scraping team data for home team in NFL live")
-                                        throw ScraperError.parse
+                                        APILogger.shared.log(message: "Error scraping team data for home team in NFL live",
+                                                             logLevel: .error)
+                                        failure(nil)
+                                        return
                                     }
                                     let teamDataChildren = teamDataNode.children
                                     for teamDataChild in teamDataChildren {
@@ -300,21 +240,25 @@ fileprivate extension SportsScraper {
                                             // Retrieve home team name
                                             guard let teamNameNode = teamDataChild.children.filter({ $0.attributes == ["class": "team-name"] }).first,
                                                   let content = teamNameNode.content else {
-                                                    Log.error("Error scraping home team name in NFL live")
-                                                    throw ScraperError.parse
+                                                    APILogger.shared.log(message: "Error scraping home team name in NFL live",
+                                                                         logLevel: .error)
+                                                    failure(nil)
+                                                    return
                                             }
                                             homeTeamName = content
                                             // Retrieve home team record info
                                             if let teamRecordNode = teamDataChild.children.filter({ $0.attributes == ["class": "team-record"] }).first,
-                                                let recordContent = teamRecordNode.children.first?.content {
+                                               let recordContent = teamRecordNode.children.first?.content {
                                                 // Parse content for wins, losses and ties
                                                 let trimmedString = recordContent.replacingOccurrences(of: "(", with: "").replacingOccurrences(of: ")", with: "")
                                                 let recordStrings = trimmedString.components(separatedBy: "-")
                                                 guard let wins = Int(recordStrings[0]),
                                                       let losses = Int(recordStrings[1]),
                                                       let ties = Int(recordStrings[2]) else {
-                                                        Log.error("Error converting records of home team in NFL live")
-                                                        throw ScraperError.conversion
+                                                        APILogger.shared.log(message: "Error converting records of home team in NFL live",
+                                                                             logLevel: .error)
+                                                        failure(nil)
+                                                        return
                                                 }
                                                 homeTeamRecordWins = wins
                                                 homeTeamRecordLosses = losses
@@ -328,8 +272,10 @@ fileprivate extension SportsScraper {
                                         } else if teamDataChild.attributes == ["class": "total-score"] {
                                             // Retrieve home team score
                                             guard let content = teamDataChild.content else {
-                                                Log.error("Error scraping home team score in NFL live")
-                                                    throw ScraperError.parse
+                                                APILogger.shared.log(message: "Error scraping home team score in NFL live",
+                                                                     logLevel: .error)
+                                                failure(nil)
+                                                return
                                             }
                                             // Check if the string is '--'
                                             if let homeScore = Int(content) {
@@ -343,7 +289,7 @@ fileprivate extension SportsScraper {
                                             for quarterScoreChild in quarterScoreChildren {
                                                 var score = 0
                                                 if let content = quarterScoreChild.content,
-                                                   let quarterScore = Int(content) {
+                                                    let quarterScore = Int(content) {
                                                     score = quarterScore
                                                 }
                                                 if quarterScoreChild.attributes == ["class": "first-qt"] {
@@ -372,8 +318,10 @@ fileprivate extension SportsScraper {
                                 guard let timeLeftPElement = gameCenterAreaChildren.filter({ $0.name == "p" }).first,
                                       let timeLeftNode = timeLeftPElement.children.first,
                                       let content = timeLeftNode.content else {
-                                        Log.error("Error scraping game status in NFL live")
-                                        throw ScraperError.parse
+                                        APILogger.shared.log(message: "Error scraping game status in NFL live",
+                                                             logLevel: .error)
+                                        failure(nil)
+                                        return
                                 }
                                 gameStatus = content
                             }
@@ -393,28 +341,78 @@ fileprivate extension SportsScraper {
                       let teamAwayRecordLosses = awayTeamRecordLosses,
                       let teamAwayRecordTies = awayTeamRecordTies,
                       let status = gameStatus else {
-                        Log.error("Values are missing for schedule")
-                        throw ScraperError.missingValues
+                        APILogger.shared.log(message: "Values are missing for schedule",
+                                             logLevel: .error)
+                        failure(nil)
+                        return
                 }
                 // Construct schedule response
-                let awayTeamRecord = ["wins": teamAwayRecordWins, "losses": teamAwayRecordLosses, "ties": teamAwayRecordTies]
-                let awayTeamScoreByQuarter = ["Q1": awayTeamScoreQ1, "Q2": awayTeamScoreQ2, "Q3": awayTeamScoreQ3, "Q4": awayTeamScoreQ4, "OT": awayTeamScoreOT]
-                let awayTeam: [String: Any] = ["teamName": teamAwayName, "record": awayTeamRecord, "score": teamAwayScore, "scoreByQuarter": awayTeamScoreByQuarter]
-                let homeTeamRecord = ["wins": teamHomeRecordWins, "losses": teamHomeRecordLosses, "ties": teamHomeRecordTies]
-                let homeTeamScoreByQuarter = ["Q1": homeTeamScoreQ1, "Q2": homeTeamScoreQ2, "Q3": homeTeamScoreQ3, "Q4": homeTeamScoreQ4, "OT": homeTeamScoreOT]
-                let homeTeam: [String: Any] = ["teamName": teamHomeName, "record": homeTeamRecord, "score": teamHomeScore, "scoreByQuarter": homeTeamScoreByQuarter]
-                let schedule = JSON(["date": dateStarted, "homeTeam": homeTeam, "awayTeam": awayTeam, "gameStatus": status])
+                let awayTeamRecord = ["wins": teamAwayRecordWins,
+                                      "losses": teamAwayRecordLosses,
+                                      "ties": teamAwayRecordTies]
+                let awayTeamScoreByQuarter = ["Q1": awayTeamScoreQ1,
+                                              "Q2": awayTeamScoreQ2,
+                                              "Q3": awayTeamScoreQ3,
+                                              "Q4": awayTeamScoreQ4,
+                                              "OT": awayTeamScoreOT]
+                let awayTeam: [String: Any] = ["teamName": teamAwayName,
+                                               "record": awayTeamRecord,
+                                               "score": teamAwayScore,
+                                               "scoreByQuarter": awayTeamScoreByQuarter]
+                let homeTeamRecord = ["wins": teamHomeRecordWins,
+                                      "losses": teamHomeRecordLosses,
+                                      "ties": teamHomeRecordTies]
+                let homeTeamScoreByQuarter = ["Q1": homeTeamScoreQ1,
+                                              "Q2": homeTeamScoreQ2,
+                                              "Q3": homeTeamScoreQ3,
+                                              "Q4": homeTeamScoreQ4,
+                                              "OT": homeTeamScoreOT]
+                let homeTeam: [String: Any] = ["teamName": teamHomeName,
+                                               "record": homeTeamRecord,
+                                               "score": teamHomeScore,
+                                               "scoreByQuarter": homeTeamScoreByQuarter]
+                let schedule = JSON(["type": ModelType.nflLive.rawValue,
+                                     "season": self.season,
+                                     "week": self.week,
+                                     "date": dateStarted,
+                                     "homeTeam": homeTeam,
+                                     "awayTeam": awayTeam,
+                                     "gameStatus": status])
                 scheduleDictionary.append(schedule)
             }
-            return JSON(scheduleDictionary)
-        case .nflHistorical:
+            success(scheduleDictionary)
+        }
+    }
+    
+    func scrapeHistoricalSchedule(success: @escaping ([JSON]) -> Void, failure: @escaping (Error?) -> Void) {
+        KituraRequest.request(.get, Endpoint.nflHistorical + "\(season)/REG\(week)").response { (request, response, data, error) in
+            guard error == nil else {
+                APILogger.shared.log(message: "Error perfoming request for NFL historical schedule",
+                                     logLevel: .error)
+                failure(error)
+                return
+            }
+            guard let responseData = data else {
+                APILogger.shared.log(message: "Error parsing response data from request for NFL historical schedule",
+                                     logLevel: .error)
+                failure(nil)
+                return
+            }
+            guard let html = String(data: responseData, encoding: .utf8) else {
+                APILogger.shared.log(message: "Error generating HTML for NFL historical schedule",
+                                     logLevel: .error)
+                failure(nil)
+                return
+            }
             guard let jiHTML = Ji(htmlString: html) else {
-                Log.error("Can't parse document for NFL historical")
-                throw ScraperError.conversion
+                APILogger.shared.log(message: "Can't parse document for NFL historical", logLevel: .error)
+                failure(nil)
+                return
             }
             guard let schedulesTableNode = jiHTML.xPath("//ul[@class='schedules-table']")?.first else {
-                Log.error("Can't get elements for NFL historical")
-                throw ScraperError.parse
+                APILogger.shared.log(message: "Can't get elements for NFL historical", logLevel: .error)
+                failure(nil)
+                return
             }
             // Represents the last date that was parsed from the HTML document
             // This value will change since the content is laid out in an alernating
@@ -427,14 +425,16 @@ fileprivate extension SportsScraper {
                     // Get date and set it to lastDateParsed
                     guard let dateSpan = scheduleTableChild.children.first?.children.first,
                           let content = dateSpan.content else {
-                            Log.error("Error scraping date for NFL historical")
-                            throw ScraperError.parse
+                            APILogger.shared.log(message: "Error scraping date for NFL historical",
+                                                 logLevel: .error)
+                            failure(nil)
+                            return
                     }
                     lastDateParsed = content
                 } else if scheduleTableChild.attributes == ["class": "schedules-list-matchup post expandable  type-reg"] ||
-                          scheduleTableChild.attributes == ["class": "schedules-list-matchup post expandable primetime type-reg"] ||
-                          scheduleTableChild.attributes == ["class": "schedules-list-matchup post  primetime type-reg"] ||
-                          scheduleTableChild.attributes == ["class": "schedules-list-matchup post   type-reg"] {
+                    scheduleTableChild.attributes == ["class": "schedules-list-matchup post expandable primetime type-reg"] ||
+                    scheduleTableChild.attributes == ["class": "schedules-list-matchup post  primetime type-reg"] ||
+                    scheduleTableChild.attributes == ["class": "schedules-list-matchup post   type-reg"] {
                     // Create game object for a post game
                     var homeTeamName: String?
                     var homeTeamScore: Int?
@@ -445,8 +445,10 @@ fileprivate extension SportsScraper {
                           let listMatchupRowCenterNode = scheduleListPostNode.children.filter({ $0.attributes == ["class": "list-matchup-row-center"] }).first,
                           let listMatchupRowAnimNode = listMatchupRowCenterNode.children.filter({ $0.attributes == ["class": "list-matchup-row-anim"] }).first,
                           let teamDataNode = listMatchupRowAnimNode.children.filter({ $0.attributes == ["class": "list-matchup-row-team"] }).first else {
-                            Log.error("Error scraping team data for NFL historical")
-                            throw ScraperError.parse
+                            APILogger.shared.log(message: "Error scraping team data for NFL historical",
+                                                 logLevel: .error)
+                            failure(nil)
+                            return
                     }
                     guard let awayNameNode = teamDataNode.children.filter({ $0.attributes == ["class": "team-name away lost"] || $0.attributes == ["class": "team-name away "] }).first,
                           let awayScoreNode = teamDataNode.children.filter({ $0.attributes == ["class": "team-score away lost"] || $0.attributes == ["class": "team-score away "] }).first,
@@ -456,8 +458,10 @@ fileprivate extension SportsScraper {
                           let awayScore = awayScoreNode.content,
                           let homeName = homeNameNode.content,
                           let homeScore = homeScoreNode.content else {
-                            Log.error("Error scraping names and scores for NFL historical")
-                            throw ScraperError.parse
+                            APILogger.shared.log(message: "Error scraping names and scores for NFL historical",
+                                                 logLevel: .error)
+                            failure(nil)
+                            return
                     }
                     homeTeamName = homeName
                     awayTeamName = awayName
@@ -476,8 +480,10 @@ fileprivate extension SportsScraper {
                     guard let listMatchupRowTimeNode = listMatchupRowCenterNode.children.filter({ $0.attributes == ["class": "list-matchup-row-time"] }).first,
                           let gameStatusNode = listMatchupRowTimeNode.children.first,
                           let content = gameStatusNode.content else {
-                            Log.error("Error scraping game status for NFL historical")
-                            throw ScraperError.parse
+                            APILogger.shared.log(message: "Error scraping game status for NFL historical",
+                                                 logLevel: .error)
+                            failure(nil)
+                            return
                     }
                     gameStatus = content
                     // Validate that neccessary content is there
@@ -486,10 +492,20 @@ fileprivate extension SportsScraper {
                           let teamAwayName = awayTeamName,
                           let teamAwayScore = awayTeamScore,
                           let status = gameStatus else {
-                            Log.error("Values are missing for schedule")
-                            throw ScraperError.missingValues
+                            APILogger.shared.log(message: "Values are missing for schedule",
+                                                 logLevel: .error)
+                            failure(nil)
+                            return
                     }
-                    scheduleDictionary.append(JSON(["date": lastDateParsed, "homeTeamName": teamHomeName, "homeTeamScore": teamHomeScore, "awayTeamName": teamAwayName, "awayTeamScore": teamAwayScore, "gameStatus": status]))
+                    scheduleDictionary.append(JSON(["type": ModelType.nflHistorical.rawValue,
+                                                    "season": self.season,
+                                                    "week": self.week,
+                                                    "date": lastDateParsed,
+                                                    "homeTeamName": teamHomeName,
+                                                    "homeTeamScore": teamHomeScore,
+                                                    "awayTeamName": teamAwayName,
+                                                    "awayTeamScore": teamAwayScore,
+                                                    "gameStatus": status]))
                 } else if scheduleTableChild.attributes == [:] {
                     continue
                 } else {
@@ -503,15 +519,19 @@ fileprivate extension SportsScraper {
                           let listMatchupRowCenterNode = scheduleListHdPreNode.children.filter({ $0.attributes == ["class": "list-matchup-row-center"] }).first,
                           let listMatchupRowAnimNode = listMatchupRowCenterNode.children.filter({ $0.attributes == ["class": "list-matchup-row-anim"] }).first,
                           let teamDataNode = listMatchupRowAnimNode.children.filter({ $0.attributes == ["class": "list-matchup-row-team"] }).first else {
-                            Log.error("Error scraping team data for NFL historical")
-                            throw ScraperError.parse
+                            APILogger.shared.log(message: "Error scraping team data for NFL historical",
+                                                 logLevel: .error)
+                            failure(nil)
+                            return
                     }
                     guard let awayTeamNameNode = teamDataNode.children.filter({ $0.attributes == ["class": "team-name away "] }).first,
                           let homeTeamNameNode = teamDataNode.children.filter({ $0.attributes == ["class": "team-name home "] }).first,
                           let awayName = awayTeamNameNode.content,
                           let homeName = homeTeamNameNode.content else {
-                            Log.error("Error scraping names for NFL historical")
-                            throw ScraperError.parse
+                            APILogger.shared.log(message: "Error scraping names for NFL historical",
+                                                 logLevel: .error)
+                            failure(nil)
+                            return
                     }
                     homeTeamName = homeName
                     awayTeamName = awayName
@@ -525,34 +545,74 @@ fileprivate extension SportsScraper {
                           let teamAwayName = awayTeamName,
                           let teamAwayScore = awayTeamScore,
                           let status = gameStatus else {
-                            Log.error("Values are missing for schedule")
-                            throw ScraperError.missingValues
+                            APILogger.shared.log(message: "Values are missing for schedule",
+                                                 logLevel: .error)
+                            failure(nil)
+                            return
                     }
-                    scheduleDictionary.append(JSON(["date": lastDateParsed, "homeTeamName": teamHomeName, "homeTeamScore": teamHomeScore, "awayTeamName": teamAwayName, "awayTeamScore": teamAwayScore, "gameStatus": status]))
+                    scheduleDictionary.append(JSON(["type": ModelType.nflHistorical.rawValue,
+                                                    "season": self.season,
+                                                    "week": self.week,
+                                                    "date": lastDateParsed,
+                                                    "homeTeamName": teamHomeName,
+                                                    "homeTeamScore": teamHomeScore,
+                                                    "awayTeamName": teamAwayName,
+                                                    "awayTeamScore": teamAwayScore,
+                                                    "gameStatus": status]))
                 }
             }
-            return(JSON(scheduleDictionary))
-        case .nflCurrent:
+            success(scheduleDictionary)
+        }
+    }
+    
+    func scrapeCurrentPosition(success: @escaping (JSON) -> Void, failure: @escaping (Error?) -> Void) {
+        KituraRequest.request(.get, Endpoint.nflHistorical).response { (request, response, data, error) in
+            guard error == nil else {
+                APILogger.shared.log(message: "Error perfoming request for current NFL season/week",
+                                     logLevel: .error)
+                failure(error)
+                return
+            }
+            guard let responseData = data else {
+                APILogger.shared.log(message: "Error parsing response data from request for NFL historical schedule",
+                                     logLevel: .error)
+                failure(nil)
+                return
+            }
+            guard let html = String(data: responseData, encoding: .utf8) else {
+                APILogger.shared.log(message: "Error generating HTML for NFL historical schedule",
+                                     logLevel: .error)
+                failure(nil)
+                return
+            }
             guard let jiHTML = Ji(htmlString: html) else {
-                Log.error("Can't parse document for NFL current")
-                throw ScraperError.conversion
+                APILogger.shared.log(message: "Can't parse document for NFL current",
+                                     logLevel: .error)
+                failure(nil)
+                return
             }
             // Get the season that was set
             guard let pageNavLabelNodes = jiHTML.xPath("//span[@class='page-nav-label']") else {
-                Log.error("Error geting paga nav labels in NFL current")
-                throw ScraperError.parse
+                APILogger.shared.log(message: "Error geting paga nav labels in NFL current",
+                                     logLevel: .error)
+                failure(nil)
+                return
             }
             var currentSeason: Int?
             var currentWeek: Int?
             for pageNavLabelNode in pageNavLabelNodes {
                 if pageNavLabelNode.children.count == 0 && pageNavLabelNode.content?.characters.count == 4 {
                     guard let seasonContent = pageNavLabelNode.content else {
-                        Log.error("Error getting season content in NFL current")
-                        throw ScraperError.parse
+                        APILogger.shared.log(message: "Error getting season content in NFL current",
+                                             logLevel: .error)
+                        failure(nil)
+                        return
                     }
                     guard let season = Int(seasonContent) else {
-                        Log.error("Error converting season content in NFL current")
-                        throw ScraperError.conversion
+                        APILogger.shared.log(message: "Error converting season content in NFL current",
+                                             logLevel: .error)
+                        failure(nil)
+                        return
                     }
                     currentSeason = season
                 }
@@ -561,45 +621,37 @@ fileprivate extension SportsScraper {
             guard let schedulesHeaderTitleNode = jiHTML.xPath("//div[@class='schedules-header-title']")?.first,
                   let weekNode = schedulesHeaderTitleNode.children.first,
                   var weekContent = weekNode.content else {
-                    Log.error("Error getting week header node in NFL current")
-                    throw ScraperError.parse
+                    APILogger.shared.log(message: "Error getting week header node in NFL current",
+                                         logLevel: .error)
+                    failure(nil)
+                    return
             }
             guard let range = weekContent.range(of: "NFL WEEK ")?.upperBound else {
-                Log.error("Error getting upper bound range of week content string in NFL current")
-                throw ScraperError.range
+                APILogger.shared.log(message: "Error getting upper bound range of week content string in NFL current",
+                                     logLevel: .error)
+                failure(nil)
+                return
             }
             weekContent = weekContent.substring(from: range)
             guard let week = Int(weekContent) else {
-                Log.error("Error converting week content in NFL current")
-                throw ScraperError.conversion
+                APILogger.shared.log(message: "Error converting week content in NFL current",
+                                     logLevel: .error)
+                failure(nil)
+                return
             }
             currentWeek = week
             // Validate that neccessary content is there
             guard let seasonCurrent = currentSeason,
-                  let weekCurrent = currentWeek else {
-                    Log.error("Values are missing for NFL current")
-                    throw ScraperError.missingValues
+                let weekCurrent = currentWeek else {
+                    APILogger.shared.log(message: "Values are missing for NFL current",
+                                         logLevel: .error)
+                    failure(nil)
+                    return
             }
-            return JSON(["season": seasonCurrent, "week": weekCurrent])
+            success(JSON(["season": seasonCurrent, "week": weekCurrent]))
         }
     }
 }
-
-
-// MARK: - Public Enums
-
-/**
-    An enum that defines errors
-    that can occur.
-*/
-enum ScraperError: Error {
-    case parse
-    case conversion
-    case objectLifetime
-    case range
-    case missingValues
-}
-
 
 
 // MARK: - Private Enums
@@ -611,14 +663,4 @@ enum ScraperError: Error {
 fileprivate enum Endpoint {
     static let nflLive = "http://www.nfl.com/scores/"
     static let nflHistorical = "http://www.nfl.com/schedules/"
-}
-
-
-/**
-    An enum that defines parsing strategy.
-*/
-fileprivate enum ParseStrategy {
-    case nflLive
-    case nflHistorical
-    case nflCurrent
 }
