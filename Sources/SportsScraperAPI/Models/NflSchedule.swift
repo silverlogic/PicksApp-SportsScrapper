@@ -25,11 +25,14 @@
 import Foundation
 import SwiftyJSON
 
+///  A base class for NFL models.
+class NflSchedule: BaseSchedule {}
+
 /**
     A class representing a live schedule
     of the NFL.
 */
-final class NflLive: BaseSchedule {
+final class NflLive: NflSchedule {
     
     // MARK: - Initializers
     
@@ -39,8 +42,40 @@ final class NflLive: BaseSchedule {
         - Parameter document: A `JSON` representing the document used in the
                               database.
     */
-    override init(document: JSON) {
+    required init(document: JSON) {
         super.init(document: document)
         modelType = .nflLive
     }
+}
+
+
+// MARK: - Queryable
+extension NflLive: Queryable {
+    static var allDocumentsViewName: String { return "all_nfl_live" }
+}
+
+/**
+    A class representing a historical schedule
+    of the NFL.
+*/
+final class NflHistorical: NflSchedule {
+    
+    // MARK: - Initializers
+    
+    /**
+        Initializes an instance of `NflHistorical`.
+     
+        - Parameter document: A `JSON` representing the document used in the
+                              database.
+    */
+    required init(document: JSON) {
+        super.init(document: document)
+        modelType = .nflHistorical
+    }
+}
+
+
+// MARK: - Queryable
+extension NflHistorical: Queryable {
+    static var allDocumentsViewName: String { return "all_nfl_historical" }
 }

@@ -32,6 +32,8 @@ import SwiftyJSON
 class BaseSchedule {
     
     // MARK: - Public Instance Attributes
+    
+    /// The type of model.
     var modelType = ModelType.base
     
     
@@ -47,7 +49,7 @@ class BaseSchedule {
         - Parameter document: A `JSON` representing the document used in the
                               database.
     */
-    init(document: JSON) {
+    required init(document: JSON) {
         self.document = document
     }
 }
