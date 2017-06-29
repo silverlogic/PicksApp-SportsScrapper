@@ -31,6 +31,8 @@ import SwiftyJSON
 struct APIError {
     
     // MARK: - Public Instance Attributes
+    
+    /// The description of the error that occured.
     let errorDesciption: String
     
     
@@ -49,7 +51,7 @@ struct APIError {
 
 
 // MARK: - ToJSON
-extension APIError: ToJSON {
+extension APIError: Serializable {
     func json() -> JSON {
         return JSON(["Error": errorDesciption])
     }
@@ -85,4 +87,8 @@ extension APIError {
     static var scrapperError: APIError = {
         return APIError(errorDescription: "scrapper error occured")
     }()
+    
+    static var databaseError: APIError {
+        return APIError(errorDescription: "datbase error occured")
+    }
 }

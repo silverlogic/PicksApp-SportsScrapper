@@ -24,6 +24,9 @@
 
 import Foundation
 import Kitura
+import ResponseTime
+import SwiftyJSON
+import Dispatch
 
 /**
     A class responsible for handling
@@ -32,7 +35,7 @@ import Kitura
 public final class SportsScraperRouter {
     
     // MARK: - Private Instance Atrributes
-    fileprivate let sportsScraper: SportsScraper
+    fileprivate let database: DatabaseConnector
     
     
     // MARK: - Public Instance Attributes
@@ -44,11 +47,11 @@ public final class SportsScraperRouter {
     /**
         Initializes an instance of `SportsScrapperController`.
      
-        - Parameter backend: A `SportsScrapper` representing
-                             the scrapper used for scrapping.
+        - Parameter database: A `DatabaseConnector` representing
+                              the scrapper used for scrapping.
     */
-    public init(backend: SportsScraper) {
-        sportsScraper = backend
+    public init(database: DatabaseConnector) {
+        self.database = database
         routeSetup()
     }
 }
@@ -59,6 +62,7 @@ fileprivate extension SportsScraperRouter {
     
     /// Sets up all avaliable routes.
     func routeSetup() {
+        router.all(middleware: ResponseTime())
         router.all("/*", middleware: BodyParser())
         router.get("/live-schedule/:leagueType/:year/:week", handler: liveSchedule)
         router.get("/historical-schedule/:leagueType/:year/:week", handler: historicalSchedule)
@@ -79,30 +83,43 @@ fileprivate extension SportsScraperRouter {
     func liveSchedule(request: RouterRequest, response: RouterResponse, next: () -> Void) {
         do {
             guard let type = request.parameters["leagueType"] else {
-                try response.status(.badRequest).send(json: APIError.leagueType.json()).end()
-                APILogger.shared.log(message: APIError.leagueType.errorDesciption, logLevel: .error)
+                try response.status(.badRequest)
+                    .send(json: APIError.leagueType.json())
+                    .end()
+                APILogger.shared.log(message: APIError.leagueType.errorDesciption,
+                                     logLevel: .error)
                 return
             }
             guard let year = request.parameters["year"] else {
-                try response.status(.badRequest).send(json: APIError.year.json()).end()
-                APILogger.shared.log(message: APIError.year.errorDesciption, logLevel: .error)
+                try response.status(.badRequest)
+                    .send(json: APIError.year.json())
+                    .end()
+                APILogger.shared.log(message: APIError.year.errorDesciption,
+                                     logLevel: .error)
                 return
             }
             guard let week = request.parameters["week"]  else {
-                try response.status(.badRequest).send(json: APIError.week.json()).end()
-                APILogger.shared.log(message: APIError.week.errorDesciption, logLevel: .error)
+                try response.status(.badRequest)
+                    .send(json: APIError.week.json())
+                    .end()
+                APILogger.shared.log(message: APIError.week.errorDesciption,
+                                     logLevel: .error)
                 return
             }
             guard let league = Int(type),
                   let season = Int(year),
                   let weekInSeason = Int(week) else {
                     try response.status(.badRequest).end()
-                    APILogger.shared.log(message: "Error casting path parameters to integers", logLevel: .error)
+                    APILogger.shared.log(message: "Error casting path parameters to integers",
+                                         logLevel: .error)
                     return
             }
             guard let leagueType = LeagueType(rawValue: league) else {
-                try response.status(.badRequest).send(json: APIError.invalidLeague.json()).end()
-                APILogger.shared.log(message: APIError.invalidLeague.errorDesciption, logLevel: .error)
+                try response.status(.badRequest)
+                    .send(json: APIError.invalidLeague.json())
+                    .end()
+                APILogger.shared.log(message: APIError.invalidLeague.errorDesciption,
+                                     logLevel: .error)
                 return
             }
             switch leagueType {
@@ -111,31 +128,106 @@ fileprivate extension SportsScraperRouter {
                     do {
                         try response.status(.badRequest).send(json: APIError.minmumYearNotMetLive.json()).end()
                     } catch {
-                        APILogger.shared.log(message: "Communications error", logLevel: .error)
+                        APILogger.shared.log(message: "Communications error",
+                                             logLevel: .error)
                     }
                 }
-                sportsScraper.liveScheduleNFL(season: season, week: weekInSeason, success: { (results) in
-                    do {
-                        try response.status(.OK).send(json: results).end()
-                    } catch {
-                        APILogger.shared.log(message: "Communications error", logLevel: .error)
+                database.fetchNflDocuments(type: NflLive.self,
+                                           season: season,
+                                           week: weekInSeason,
+                                           success: { (results: [NflLive]) in
+                    if results.count == 0 {
+                        let nflScraper = NflScraper(season: season, week: weekInSeason)
+                        nflScraper.scrapeLiveSchedule(success: { (results) in
+                            do {
+                                try response.status(.OK)
+                                    .send(json: JSON(results))
+                                    .end()
+                            } catch {
+                                APILogger.shared.log(message: "Communications error",
+                                                     logLevel: .error)
+                            }
+                            let completedSchedules = results.filter {
+                                return $0["gameStatus"].stringValue == "FINAL " ||
+                                       $0["gameStatus"].stringValue == "FINAL OT"
+                            }
+                            if completedSchedules.count == results.count {
+                                let dispatchQueue = DispatchQueue.global(qos: .utility)
+                                let dispatchGroup = DispatchGroup()
+                                var databaseError: Error?
+                                for schedule in completedSchedules {
+                                    dispatchGroup.enter()
+                                    dispatchQueue.async {
+                                        self.database.insertDocument(schedule, success: {
+                                            dispatchGroup.leave()
+                                        }, failure: { (error) in
+                                            databaseError = error
+                                            dispatchGroup.leave()
+                                        })
+                                    }
+                                }
+                                dispatchGroup.notify(queue: DispatchQueue.main) {
+                                    guard databaseError == nil else {
+                                        APILogger.shared.log(message: "Error inserting schedules into database",
+                                                             logLevel: .error)
+                                        APILogger.shared.log(message: "\((databaseError?.localizedDescription)!)",
+                                                             logLevel: .error)
+                                        return
+                                    }
+                                    APILogger.shared.log(message: "Inserted live NFL schedules for season \(season) and week \(weekInSeason)",
+                                                         logLevel: .error)
+                                }
+                            }
+                        }, failure: { (error) in
+                            do {
+                                if let scrapperError = error {
+                                    try response.status(.internalServerError)
+                                        .send(json: APIError(errorDescription: scrapperError.localizedDescription).json())
+                                        .end()
+                                } else {
+                                    try response.status(.internalServerError)
+                                        .send(json: APIError.scrapperError.json())
+                                        .end()
+                                }
+                                APILogger.shared.log(message: APIError.scrapperError.errorDesciption,
+                                                     logLevel: .error)
+                            } catch {
+                                APILogger.shared.log(message: "Communications error",
+                                                     logLevel: .error)
+                            }
+                        })
+                    } else {
+                        let schedules: [JSON] = results.flatMap { $0.json() }
+                        do {
+                            try response.status(.OK)
+                                .send(json: JSON(schedules))
+                                .end()
+                        } catch {
+                            APILogger.shared.log(message: "Communications error",
+                                                 logLevel: .error)
+                        }
                     }
                 }, failure: { (error) in
                     do {
-                        if let scrapperError = error {
-                            try response.status(.internalServerError).send(json: APIError(errorDescription: scrapperError.localizedDescription).json()).end()
+                        if let databaseError = error {
+                            try response.status(.internalServerError)
+                                        .send(json: APIError(errorDescription: databaseError.localizedDescription).json())
+                                        .end()
                         } else {
-                            try response.status(.internalServerError).send(json: APIError.scrapperError.json()).end()
+                            try response.status(.internalServerError)
+                                        .send(json: APIError.databaseError.json())
+                                        .end()
                         }
-                        APILogger.shared.log(message: APIError.scrapperError.errorDesciption, logLevel: .error)
                     } catch {
-                        APILogger.shared.log(message: "Communications error", logLevel: .error)
+                        APILogger.shared.log(message: "Communications error",
+                                             logLevel: .error)
                     }
                 })
                 break
             }
         } catch {
-            APILogger.shared.log(message: "Communications error", logLevel: .error)
+            APILogger.shared.log(message: "Communications error",
+                                 logLevel: .error)
         }
     }
     
@@ -153,57 +245,146 @@ fileprivate extension SportsScraperRouter {
     func historicalSchedule(request: RouterRequest, response: RouterResponse, next: () -> Void) {
         do {
             guard let type = request.parameters["leagueType"] else {
-                try response.status(.badRequest).send(json: APIError.leagueType.json()).end()
-                APILogger.shared.log(message: APIError.leagueType.errorDesciption, logLevel: .error)
+                try response.status(.badRequest)
+                    .send(json: APIError.leagueType.json())
+                    .end()
+                APILogger.shared.log(message: APIError.leagueType.errorDesciption,
+                                     logLevel: .error)
                 return
             }
             guard let year = request.parameters["year"] else {
-                try response.status(.badRequest).send(json: APIError.year.json()).end()
-                APILogger.shared.log(message: APIError.year.errorDesciption, logLevel: .error)
+                try response.status(.badRequest)
+                    .send(json: APIError.year.json())
+                    .end()
+                APILogger.shared.log(message: APIError.year.errorDesciption,
+                                     logLevel: .error)
                 return
             }
             guard let week = request.parameters["week"]  else {
-                try response.status(.badRequest).send(json: APIError.week.json()).end()
-                APILogger.shared.log(message: APIError.week.errorDesciption, logLevel: .error)
+                try response.status(.badRequest)
+                    .send(json: APIError.week.json())
+                    .end()
+                APILogger.shared.log(message: APIError.week.errorDesciption,
+                                     logLevel: .error)
                 return
             }
             guard let league = Int(type),
                   let season = Int(year),
                   let weekInSeason = Int(week) else {
                     try response.status(.badRequest).end()
-                    APILogger.shared.log(message: "Error casting path parameters to integers", logLevel: .error)
+                    APILogger.shared.log(message: "Error casting path parameters to integers",
+                                         logLevel: .error)
                     return
             }
             guard let leagueType = LeagueType(rawValue: league) else {
-                try response.status(.badRequest).send(json: APIError.invalidLeague.json()).end()
-                APILogger.shared.log(message: APIError.invalidLeague.errorDesciption, logLevel: .error)
+                try response.status(.badRequest)
+                    .send(json: APIError.invalidLeague.json())
+                    .end()
+                APILogger.shared.log(message: APIError.invalidLeague.errorDesciption,
+                                     logLevel: .error)
                 return
             }
             switch leagueType {
             case .nfl:
                 if season < 1970 {
                     do {
-                        try response.status(.badRequest).send(json: APIError.minmumYearNotMetHistorical.json()).end()
+                        try response.status(.badRequest)
+                            .send(json: APIError.minmumYearNotMetHistorical.json())
+                            .end()
                     } catch {
-                        APILogger.shared.log(message: "Communications error", logLevel: .error)
+                        APILogger.shared.log(message: "Communications error",
+                                             logLevel: .error)
                     }
                 }
-                sportsScraper.historicalScheduleNFL(season: season, week: weekInSeason, success: { (results) in
-                    do {
-                        try response.status(.OK).send(json: results).end()
-                    } catch {
-                        APILogger.shared.log(message: "Communications error", logLevel: .error)
+                database.fetchNflDocuments(type: NflHistorical.self,
+                                           season: season,
+                                           week: weekInSeason,
+                                           success: { (results: [NflHistorical]) in
+                    if results.count == 0 {
+                        let nflScraper = NflScraper(season: season, week: weekInSeason)
+                        nflScraper.scrapeHistoricalSchedule(success: { (results) in
+                            do {
+                                try response.status(.OK)
+                                    .send(json: JSON(results))
+                                    .end()
+                            } catch {
+                                APILogger.shared.log(message: "Communications error",
+                                                     logLevel: .error)
+                            }
+                            let completedSchedules = results.filter {
+                                return $0["gameStatus"].stringValue == "FINAL" ||
+                                       $0["gameStatus"].stringValue == "FINAL OT"
+                            }
+                            if completedSchedules.count == results.count {
+                                let dispatchQueue = DispatchQueue.global(qos: .utility)
+                                let dispatchGroup = DispatchGroup()
+                                var databaseError: Error?
+                                for schedule in completedSchedules {
+                                    dispatchGroup.enter()
+                                    dispatchQueue.async {
+                                        self.database.insertDocument(schedule, success: {
+                                            dispatchGroup.leave()
+                                        }, failure: { (error) in
+                                            databaseError = error
+                                            dispatchGroup.leave()
+                                        })
+                                    }
+                                }
+                                dispatchGroup.notify(queue: DispatchQueue.main) {
+                                    guard databaseError == nil else {
+                                        APILogger.shared.log(message: "Error inserting schedules into database",
+                                                             logLevel: .error)
+                                        APILogger.shared.log(message: "\((databaseError?.localizedDescription)!)",
+                                                             logLevel: .error)
+                                        return
+                                    }
+                                    APILogger.shared.log(message: "Inserted historical NFL schedules for season \(season) and week \(weekInSeason)",
+                                                         logLevel: .error)
+                                }
+                            }
+                        }, failure: { (error) in
+                            do {
+                                if let scrapperError = error {
+                                    try response.status(.internalServerError)
+                                        .send(json: APIError(errorDescription: scrapperError.localizedDescription).json())
+                                        .end()
+                                } else {
+                                    try response.status(.internalServerError)
+                                        .send(json: APIError.scrapperError.json())
+                                        .end()
+                                }
+                                APILogger.shared.log(message: APIError.scrapperError.errorDesciption,
+                                                     logLevel: .error)
+                            } catch {
+                                APILogger.shared.log(message: "Communications error",
+                                                     logLevel: .error)
+                            }
+                        })
+                    } else {
+                        let schedules: [JSON] = results.flatMap { $0.json() }
+                        do {
+                            try response.status(.OK)
+                                .send(json: JSON(schedules))
+                                .end()
+                        } catch {
+                            APILogger.shared.log(message: "Communications error",
+                                                 logLevel: .error)
+                        }
                     }
                 }, failure: { (error) in
                     do {
-                        if let scrapperError = error {
-                            try response.status(.internalServerError).send(json: APIError(errorDescription: scrapperError.localizedDescription).json()).end()
+                        if let databaseError = error {
+                            try response.status(.internalServerError)
+                                .send(json: APIError(errorDescription: databaseError.localizedDescription).json())
+                                .end()
                         } else {
-                            try response.status(.internalServerError).send(json: APIError.scrapperError.json()).end()
+                            try response.status(.internalServerError)
+                                .send(json: APIError.databaseError.json())
+                                .end()
                         }
-                        APILogger.shared.log(message: APIError.scrapperError.errorDesciption, logLevel: .error)
                     } catch {
-                        APILogger.shared.log(message: "Communications error", logLevel: .error)
+                        APILogger.shared.log(message: "Communications error",
+                                             logLevel: .error)
                     }
                 })
                 break
@@ -243,7 +424,8 @@ fileprivate extension SportsScraperRouter {
             }
             switch leagueType {
             case .nfl:
-                sportsScraper.currentSeasonWeek(success: { (results) in
+                let nflScraper = NflScraper(season: 0, week: 0)
+                nflScraper.scrapeCurrentPosition(success: { (results) in
                     do {
                         try response.status(.OK).send(json: results).end()
                     } catch {
