@@ -22,9 +22,12 @@
 * SOFTWARE.
 */
 
-import XCTest
-@testable import SportsScraperAPITests
+import Foundation
 
-XCTMain([
-    testCase(DatabaseConnectorTests.allTests)
-])
+/**
+    A protocol that defines how schedules can be
+    queried from the database.
+*/
+protocol Queryable: class  {
+    static var allDocumentsViewName: String { get }
+}

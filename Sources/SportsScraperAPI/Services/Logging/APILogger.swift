@@ -34,6 +34,8 @@ import SwiftyBeaver
 public final class APILogger {
     
     // MARK: - Shared Instance
+    
+    /// A global instance that can be used for universal logging.
     public static let shared = APILogger()
     
     
