@@ -27,22 +27,19 @@ import Kitura
 import SportsScraperAPI
 
 APILogger.shared.log(message: "Beginning server setup", logLevel: .info)
-let sportsScrapper = SportsScraper()
-let sportsScraperRouter = SportsScraperRouter(backend: sportsScrapper)
 let configuration = APIConfiguration()
-let database: Database
+let database: DatabaseConnector
 do {
     APILogger.shared.log(message: "Attempting init with CF environment",
                          logLevel: .info)
     let service = try configuration.databaseConfiguration()
-    database = Database(service: service)
-    // @TODO: Inject database into scraper
+    database = DatabaseConnector(service: service)
 } catch {
     APILogger.shared.log(message: "Could not retrieve CF env: init with defaults",
                          logLevel: .info)
-    database = Database()
-    // @TODO: Inject database into scraper
+    database = DatabaseConnector()
 }
+let sportsScraperRouter = SportsScraperRouter(database: database)
 APILogger.shared.log(message: "Assigned port \(configuration.port)",
                      logLevel: .verbose)
 APILogger.shared.log(message: "REST API can be accessed at \(configuration.url)",
