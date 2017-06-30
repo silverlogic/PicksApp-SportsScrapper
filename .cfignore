@@ -4,7 +4,8 @@ Packages/*
 *.xcodeproj/*
 *.xcworkspace/*
 .travis.yml
-docker-compose-linux.yml
-docker-compose-osx.yml
+docker-compose.yml
+docker-test.yml
 .travis.yml
+install-swift.sh
 README.md
