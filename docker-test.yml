@@ -11,6 +11,6 @@ app:
     - "8080:8080"
   volumes:
     - .:/root/Picks-SportsScrapper
-  command: bash -c " apt-get update && apt-get install libxml2-dev && cd /root/Picks-SportsScrapper && swift package clean && swift build --configuration release && ./.build/release/SportsScraperServer"
+  command: bash -c " apt-get update && apt-get install libxml2-dev && cd /root/Picks-SportsScrapper && swift package clean && swift build && swift test"
   links: 
     - db:localhost

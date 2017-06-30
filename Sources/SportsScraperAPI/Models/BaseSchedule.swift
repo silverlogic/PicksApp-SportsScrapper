@@ -22,9 +22,50 @@
 * SOFTWARE.
 */
 
-import XCTest
-@testable import SportsScraperAPITests
+import Foundation
+import SwiftyJSON
 
-XCTMain([
-    testCase(DatabaseConnectorTests.allTests)
-])
+/**
+    A class representing a base schedule
+    for any sports league.
+*/
+class BaseSchedule {
+    
+    // MARK: - Public Instance Attributes
+    
+    /// The type of model.
+    var modelType = ModelType.base
+    
+    
+    // MARK: - Private Instance Attributes
+    fileprivate let document: JSON
+    
+    
+    // MARK: - Initializers
+    
+    /**
+        Initiailizes an instance of `BaseSchedule`
+     
+        - Parameter document: A `JSON` representing the document used in the
+                              database.
+    */
+    required init(document: JSON) {
+        self.document = document
+    }
+}
+
+
+// MARK: - ToJSON
+extension BaseSchedule: Serializable {
+    func json() -> JSON {
+        return document
+    }
+}
+
+
+/// An enum that defines different model types.
+enum ModelType: Int {
+    case base
+    case nflHistorical
+    case nflLive
+}
