@@ -88,7 +88,16 @@ extension APIError {
         return APIError(errorDescription: "scrapper error occured")
     }()
     
-    static var databaseError: APIError {
+    static var databaseError: APIError = {
         return APIError(errorDescription: "datbase error occured")
-    }
+    }()
+    
+    static var timePeriod: APIError = {
+        return APIError(errorDescription: "'timePeriod' must be specified in path")
+    }()
+    
+    static var invalidTimePeriod: APIError = {
+        return APIError(errorDescription: "Invalid time period selected")
+    }()
+    
 }

@@ -60,7 +60,7 @@ protocol Scrapable {
                                   failure: @escaping (_ error: Error?) -> Void)
     
     /**
-        Retrieves current position in a league.
+        Scrapes current position in a league.
      
         - Parameters:
             - success: A closure that gets invoked when scraping was successful.
@@ -72,4 +72,31 @@ protocol Scrapable {
     */
     func scrapeCurrentPosition(success: @escaping (_ result: JSON) -> Void,
                                failure: @escaping (_ error: Error?) -> Void)
+    
+    /**
+        Scrapes mock data for  live schedule.
+     
+        - Parameters:
+            - timePeriod: A `TimePeriod` representing the period in time to
+                          retrieve.
+            - success: A closure that gets invoked when scraping was successful.
+            - failure: A closure that gets invoked when scraping failed.
+            - result: A `[JSON]` representing the results that were retrieved.
+                      Gets passed in `success`.
+            - error: A `Error?` representing the error that occured. Gets passed
+                     in `failure`.
+    */
+    func scrapeMock(timePeriod: TimePeriod,
+                    success: @escaping (_ result: [JSON]) -> Void,
+                    failure: @escaping (_ error: Error?) -> Void)
+}
+
+/**
+    An enum that defines the different
+    time periods of a simulated week.
+*/
+enum TimePeriod: Int {
+    case beginning
+    case middle
+    case final
 }

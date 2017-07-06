@@ -64,9 +64,14 @@ fileprivate extension SportsScraperRouter {
     func routeSetup() {
         router.all(middleware: ResponseTime())
         router.all("/*", middleware: BodyParser())
-        router.get("/live-schedule/:leagueType/:year/:week", handler: liveSchedule)
-        router.get("/historical-schedule/:leagueType/:year/:week", handler: historicalSchedule)
-        router.get("/current/:leagueType", handler: currentSeasonWeek)
+        router.get("/live-schedule/:leagueType/:year/:week",
+                   handler: handleLiveScheduleRoute)
+        router.get("/historical-schedule/:leagueType/:year/:week",
+                   handler: handleHistoricalScheduleRoute)
+        router.get("/current/:leagueType",
+                   handler: handleCurrentSeasonWeekRoute)
+        router.get("/mock-data/:leagueType/:timePeriod",
+                   handler: handleMockDataRoute)
     }
     
     /**
@@ -80,7 +85,9 @@ fileprivate extension SportsScraperRouter {
             - next: A closure that gets invoked to handle the next
                     request.
     */
-    func liveSchedule(request: RouterRequest, response: RouterResponse, next: () -> Void) {
+    func handleLiveScheduleRoute(request: RouterRequest,
+                                 response: RouterResponse,
+                                 next: () -> Void) {
         do {
             guard let type = request.parameters["leagueType"] else {
                 try response.status(.badRequest)
@@ -242,7 +249,9 @@ fileprivate extension SportsScraperRouter {
             - next: A closure that gets invoked to handle the next
                     request.
      */
-    func historicalSchedule(request: RouterRequest, response: RouterResponse, next: () -> Void) {
+    func handleHistoricalScheduleRoute(request: RouterRequest,
+                                       response: RouterResponse,
+                                       next: () -> Void) {
         do {
             guard let type = request.parameters["leagueType"] else {
                 try response.status(.badRequest)
@@ -405,21 +414,30 @@ fileprivate extension SportsScraperRouter {
             - next: A closure that gets invoked to handle the next
                     request.
     */
-    func currentSeasonWeek(request: RouterRequest, response: RouterResponse, next: () -> Void) {
+    func handleCurrentSeasonWeekRoute(request: RouterRequest,
+                                      response: RouterResponse,
+                                      next: () -> Void) {
         do {
             guard let type = request.parameters["leagueType"] else {
-                try response.status(.badRequest).send(json: APIError.leagueType.json()).end()
-                APILogger.shared.log(message: APIError.leagueType.errorDesciption, logLevel: .error)
+                try response.status(.badRequest)
+                    .send(json: APIError.leagueType.json())
+                    .end()
+                APILogger.shared.log(message: APIError.leagueType.errorDesciption,
+                                     logLevel: .error)
                 return
             }
             guard let league = Int(type) else {
                 try response.status(.badRequest).end()
-                APILogger.shared.log(message: "Error casting path parameters to integers", logLevel: .error)
+                APILogger.shared.log(message: "Error casting path parameters to integers",
+                                     logLevel: .error)
                 return
             }
             guard let leagueType = LeagueType(rawValue: league) else {
-                try response.status(.badRequest).send(json: APIError.invalidLeague.json()).end()
-                APILogger.shared.log(message: APIError.invalidLeague.errorDesciption, logLevel: .error)
+                try response.status(.badRequest)
+                    .send(json: APIError.invalidLeague.json())
+                    .end()
+                APILogger.shared.log(message: APIError.invalidLeague.errorDesciption,
+                                     logLevel: .error)
                 return
             }
             switch leagueType {
@@ -429,26 +447,125 @@ fileprivate extension SportsScraperRouter {
                     do {
                         try response.status(.OK).send(json: results).end()
                     } catch {
-                        APILogger.shared.log(message: "Communications error", logLevel: .error)
+                        APILogger.shared.log(message: "Communications error",
+                                             logLevel: .error)
                     }
                 }, failure: { (error) in
                     do {
                         if let scrapperError = error {
-                            try response.status(.internalServerError).send(json: APIError(errorDescription: scrapperError.localizedDescription).json()).end()
+                            try response.status(.internalServerError)
+                                .send(json: APIError(errorDescription: scrapperError.localizedDescription).json())
+                                .end()
                         } else {
-                            try response.status(.internalServerError).send(json: APIError.scrapperError.json()).end()
+                            try response.status(.internalServerError)
+                                .send(json: APIError.scrapperError.json())
+                                .end()
                         }
-                        APILogger.shared.log(message: APIError.scrapperError.errorDesciption, logLevel: .error)
+                        APILogger.shared.log(message: APIError.scrapperError.errorDesciption,
+                                             logLevel: .error)
                     } catch {
-                        APILogger.shared.log(message: "Communications error", logLevel: .error)
+                        APILogger.shared.log(message: "Communications error",
+                                             logLevel: .error)
                     }
                 })
                 break
             }
         } catch {
-            APILogger.shared.log(message: "Communications error", logLevel: .error)
+            APILogger.shared.log(message: "Communications error",
+                                 logLevel: .error)
         }
     }
+    
+    /**
+        Handler for the mock data route.
+     
+        - Parameters:
+            - request: A `RouterRequest` representing the request
+                       object sent from the client.
+            - response: A `RouterResponse` representing the response
+                        object to send back to the client.
+            - next: A closure that gets invoked to handle the next
+                    request.
+    */
+    func handleMockDataRoute(request: RouterRequest,
+                             response: RouterResponse,
+                             next: () -> Void) {
+        do {
+            guard let type = request.parameters["leagueType"] else {
+                try response.status(.badRequest)
+                    .send(json: APIError.leagueType.json())
+                    .end()
+                APILogger.shared.log(message: APIError.leagueType.errorDesciption,
+                                     logLevel: .error)
+                return
+            }
+            guard let period = request.parameters["timePeriod"] else {
+                try response.status(.badRequest)
+                    .send(json: APIError.timePeriod.json())
+                    .end()
+                APILogger.shared.log(message: APIError.timePeriod.errorDesciption,
+                                     logLevel: .error)
+                return
+            }
+            guard let league = Int(type),
+                  let time = Int(period) else {
+                    try response.status(.badRequest).end()
+                    return
+            }
+            guard let timePeriod = TimePeriod(rawValue: time) else {
+                try response.status(.badRequest)
+                    .send(json: APIError.invalidTimePeriod.json())
+                    .end()
+                APILogger.shared.log(message: APIError.invalidTimePeriod.errorDesciption,
+                                     logLevel: .error)
+                return
+            }
+            guard let leagueType = LeagueType(rawValue: league) else {
+                try response.status(.badRequest)
+                    .send(json: APIError.invalidLeague.json())
+                    .end()
+                APILogger.shared.log(message: APIError.invalidLeague.errorDesciption,
+                                     logLevel: .error)
+                return
+            }
+            switch leagueType {
+            case .nfl:
+                let nflScraper = NflScraper(season: 2016, week: 1)
+                nflScraper.scrapeMock(timePeriod: timePeriod, success: { (results) in
+                    do {
+                        try response.status(.OK)
+                            .send(json: JSON(results))
+                            .end()
+                    } catch {
+                        APILogger.shared.log(message: "Communications error",
+                                             logLevel: .error)
+                    }
+                }, failure: { (error) in
+                    do {
+                        if let scrapperError = error {
+                            try response.status(.internalServerError)
+                                .send(json: APIError(errorDescription: scrapperError.localizedDescription).json())
+                                .end()
+                        } else {
+                            try response.status(.internalServerError)
+                                .send(json: APIError.scrapperError.json())
+                                .end()
+                        }
+                        APILogger.shared.log(message: APIError.scrapperError.errorDesciption,
+                                             logLevel: .error)
+                    } catch {
+                        APILogger.shared.log(message: "Communications error",
+                                             logLevel: .error)
+                    }
+                })
+                break
+            }
+        } catch {
+            APILogger.shared.log(message: "Communications error",
+                                 logLevel: .error)
+        }
+    }
+    
 }
 
 
