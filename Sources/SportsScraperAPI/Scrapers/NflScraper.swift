@@ -368,6 +368,8 @@ final class NflScraper: Scrapable {
             break
         }
         guard let mockData = fileData else {
+            APILogger.shared.log(message: "Error loading mock data for NFL mock",
+                                 logLevel: .error)
             failure(nil)
             return
         }
