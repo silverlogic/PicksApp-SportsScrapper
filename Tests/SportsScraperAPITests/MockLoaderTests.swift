@@ -23,9 +23,40 @@
 */
 
 import XCTest
-@testable import SportsScraperAPITests
+@testable import SportsScraperAPI
 
-XCTMain([
-    testCase(DatabaseConnectorTests.allTests),
-    testCase(MockLoaderTests.allTests)
-])
+/**
+    Test suite for testing `MockLoader`.
+*/
+final class MockLoaderTests: XCTestCase {
+    
+    // MARK: - Public Class Attributes
+    static var allTests = [
+        ("testReadMockFile", testReadMockFile)
+    ]
+    
+    
+    // MARK: - Public Instance Attributes
+    var mockLoader: MockLoader!
+    
+    
+    // MARK: - Setup & Tear Down
+    override func setUp() {
+        super.setUp()
+        mockLoader = MockLoader()
+    }
+    
+    override func tearDown() {
+        super.tearDown()
+        mockLoader = nil
+    }
+    
+    
+    // MARK: - Test Methods
+    
+    /// Test retriving different mock data files.
+    func testReadMockFile() {
+        let nflLiveBeginningData = mockLoader.readMockFile(.nflLiveBeginning)
+        XCTAssertNotNil(nflLiveBeginningData, "Value shouldn't be nil")
+    }
+}

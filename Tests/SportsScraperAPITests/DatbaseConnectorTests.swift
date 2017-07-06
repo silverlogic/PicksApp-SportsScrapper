@@ -29,7 +29,7 @@ import SwiftyJSON
 /**
     Test suite for testing `DatabaseConnector`.
 */
-class DatabaseConnectorTests: XCTestCase {
+final class DatabaseConnectorTests: XCTestCase {
     
     // MARK: - Public Class Attributes
     static var allTests = [
@@ -49,6 +49,7 @@ class DatabaseConnectorTests: XCTestCase {
     }
     
     override func tearDown() {
+        super.tearDown()
         guard let database = database else {
             preconditionFailure("No datbase instance exists")
         }
@@ -101,7 +102,7 @@ class DatabaseConnectorTests: XCTestCase {
             })
             insertGameExpectation.fulfill()
         }, failure: { (error) in
-            XCTFail("Error insserting NflLive model instance")
+            XCTFail("Error inserting NflLive model instance")
             insertGameExpectation.fulfill()
             queryNflLiveExpectation.fulfill()
         })
@@ -110,7 +111,7 @@ class DatabaseConnectorTests: XCTestCase {
         }
     }
     
-    /// Test inserting a `NflHistorical` model instance and querying it.
+    /// Tests inserting a `NflHistorical` model instance and querying it.
     func testInsertAndQueryNflHistorical() {
         let game: [String: Any] = ["homeTeamScore": 42,
                     "gameStatus": "FINAL",
