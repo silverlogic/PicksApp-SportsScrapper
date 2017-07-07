@@ -43,7 +43,7 @@ final class MockLoader {
             // Running in Cloud Foundary
             // Need to start at the root directory
             let workingDirectory = fileManager.currentDirectoryPath
-            let sourcesDirectoryPath = URL(fileURLWithPath: workingDirectory + "/Sources").path
+            let sourcesDirectoryPath = URL(fileURLWithPath: workingDirectory + "/Sources/SportsScraperAPI/Models/Mock-Data/Mock-Schedules").path
             if fileManager.fileExists(atPath: sourcesDirectoryPath) {
                 APILogger.shared.log(message: "This path exists! 😀", logLevel: .info)
             }
