@@ -30,7 +30,7 @@ import Foundation
 final class MockLoader {
     
     // MARK: - Private Instance Attributes
-    private let rootPath: String
+    private var rootPath: String
     
     
     // MARK: - Initializers
@@ -38,7 +38,17 @@ final class MockLoader {
     /// Initializes an instance of `MockLoader`.
     init() {
         rootPath = URL(fileURLWithPath: #file + "/../Mock-Schedules").standardizedFileURL.path
-        APILogger.shared.log(message: "Current path to use: \(rootPath)", logLevel: .info)
+        let fileManager = FileManager.default
+        if !fileManager.fileExists(atPath: rootPath) {
+            // Running in Cloud Foundary
+            // Need to start at the root directory
+            let workingDirectory = fileManager.currentDirectoryPath
+            let sourcesDirectoryPath = URL(fileURLWithPath: workingDirectory + "/Sources").path
+            if fileManager.fileExists(atPath: sourcesDirectoryPath) {
+                APILogger.shared.log(message: "This path exists! 😀", logLevel: .info)
+            }
+        }
+        //APILogger.shared.log(message: "Current path to use: \(rootPath)", logLevel: .info)
     }
     
     
