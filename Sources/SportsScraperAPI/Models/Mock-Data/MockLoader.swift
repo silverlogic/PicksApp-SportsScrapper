@@ -38,6 +38,7 @@ final class MockLoader {
     /// Initializes an instance of `MockLoader`.
     init() {
         rootPath = URL(fileURLWithPath: #file + "/../Mock-Schedules").standardizedFileURL.path
+        APILogger.shared.log(message: "Current path to use: \(rootPath)", logLevel: .info)
     }
     
     
@@ -55,7 +56,16 @@ final class MockLoader {
     func readMockFile(_ mockFile: MockFile) -> Data? {
         let fileManager = FileManager.default
         let path = rootPath + mockFile.rawValue
-        guard fileManager.fileExists(atPath: path) else { return nil }
+        guard fileManager.fileExists(atPath: path) else {
+            APILogger.shared.log(message: "File does not exist for \(mockFile.rawValue)",
+                                 logLevel: .error)
+            return nil
+        }
+        guard fileManager.isReadableFile(atPath: rootPath) else {
+            APILogger.shared.log(message: "File can't be read due to permissions",
+                                 logLevel: .error)
+            return nil
+        }
         return fileManager.contents(atPath: path)
     }
 }
