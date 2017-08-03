@@ -267,7 +267,7 @@ final class NflScraper: Scrapable {
     
     func scrapeCurrentPosition(success: @escaping (JSON) -> Void,
                                failure: @escaping (Error?) -> Void) {
-        KituraRequest.request(.get, Endpoint.nflHistorical).response { (request, response, data, error) in
+        KituraRequest.request(.get, Endpoint.nflCurrent).response { (request, response, data, error) in
             guard error == nil else {
                 APILogger.shared.log(message: "Error perfoming request for current NFL season/week",
                                      logLevel: .error)
@@ -292,49 +292,58 @@ final class NflScraper: Scrapable {
                 failure(nil)
                 return
             }
-            // Get the season that was set
-            guard let pageNavLabelNodes = jiHTML.xPath("//span[@class='page-nav-label']") else {
-                APILogger.shared.log(message: "Error geting paga nav labels in NFL current",
-                                     logLevel: .error)
-                failure(nil)
-                return
-            }
             var currentSeason: Int?
             var currentWeek: Int?
-            for pageNavLabelNode in pageNavLabelNodes {
-                if pageNavLabelNode.children.count == 0 && pageNavLabelNode.content?.characters.count == 4 {
-                    guard let seasonContent = pageNavLabelNode.content else {
-                        APILogger.shared.log(message: "Error getting season content in NFL current",
-                                             logLevel: .error)
-                        failure(nil)
-                        return
-                    }
-                    guard let season = Int(seasonContent) else {
-                        APILogger.shared.log(message: "Error converting season content in NFL current",
-                                             logLevel: .error)
-                        failure(nil)
-                        return
-                    }
-                    currentSeason = season
-                }
-            }
-            // Get the week that was set
-            guard let schedulesHeaderTitleNode = jiHTML.xPath("//div[@class='schedules-header-title']")?.first,
-                  let weekNode = schedulesHeaderTitleNode.children.first,
-                  var weekContent = weekNode.content else {
-                    APILogger.shared.log(message: "Error getting week header node in NFL current",
-                                         logLevel: .error)
-                    failure(nil)
-                    return
-            }
-            guard let range = weekContent.range(of: "NFL WEEK ")?.upperBound else {
-                APILogger.shared.log(message: "Error getting upper bound range of week content string in NFL current",
+            // Get the current season
+            guard let pageTitleNode = jiHTML.xPath("//h1[@class='pageTitle feature nfl']") else {
+                APILogger.shared.log(message: "Error geting page title in NFL current",
                                      logLevel: .error)
                 failure(nil)
                 return
             }
-            weekContent = weekContent.substring(from: range)
-            guard let week = Int(weekContent) else {
+            guard let seasonContent = pageTitleNode.first?.content else {
+                APILogger.shared.log(message: "Error getting season content in NFL current",
+                                     logLevel: .error)
+                failure(nil)
+                return
+            }
+            let lowerCasedSeason = seasonContent.lowercased()
+            guard let seasonRange = lowerCasedSeason.range(of: " nfl schedule")?.lowerBound else {
+                APILogger.shared.log(message: "Error getting season range in NFL current",
+                                     logLevel: .error)
+                failure(nil)
+                return
+            }
+            let newSeasonContent = lowerCasedSeason.substring(to: seasonRange)
+            guard let season = Int(newSeasonContent) else {
+                APILogger.shared.log(message: "Error converting season content in NFL current",
+                                     logLevel: .error)
+                failure(nil)
+                return
+            }
+            currentSeason = season
+            // Get the current week
+            guard let titleNode = jiHTML.xPath("//tr[@class='title']") else {
+                APILogger.shared.log(message: "Error geting title in NFL current",
+                                     logLevel: .error)
+                failure(nil)
+                return
+            }
+            guard let weekContent = titleNode.first?.children.first?.content else {
+                APILogger.shared.log(message: "Error getting week content in NFL current",
+                                     logLevel: .error)
+                failure(nil)
+                return
+            }
+            let lowerCasedWeek = weekContent.lowercased()
+            guard let weekRange = lowerCasedWeek.range(of: "week ")?.upperBound else {
+                APILogger.shared.log(message: "Error getting week range in NFL current",
+                                     logLevel: .error)
+                failure(nil)
+                return
+            }
+            let newWeekContent = lowerCasedWeek.substring(from: weekRange)
+            guard let week = Int(newWeekContent) else {
                 APILogger.shared.log(message: "Error converting week content in NFL current",
                                      logLevel: .error)
                 failure(nil)
@@ -343,7 +352,7 @@ final class NflScraper: Scrapable {
             currentWeek = week
             // Validate that neccessary content is there
             guard let seasonCurrent = currentSeason,
-                let weekCurrent = currentWeek else {
+                  let weekCurrent = currentWeek else {
                     APILogger.shared.log(message: "Values are missing for NFL current",
                                          logLevel: .error)
                     failure(nil)
@@ -716,4 +725,5 @@ fileprivate extension NflScraper {
 fileprivate enum Endpoint {
     static let nflLive = "http://www.nfl.com/scores/"
     static let nflHistorical = "http://www.nfl.com/schedules/"
+    static let nflCurrent = "https://www.cbssports.com/nfl/schedules/regular"
 }

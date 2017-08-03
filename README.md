@@ -37,6 +37,12 @@ If you would like to run the API in a Linux environment, we recommend using Dock
 1. In a terminal, Install IBM's Swift Docker image by doing `$ docker pull ibmcom/swift-ubuntu`.
 1. Then, install the CouchBD Docker image with admin support by doing `$ docker pull couchdb`.
 
+### libxml2
+You will need the system libraries for parsing XML or HTML install on your machine or you will receive an error when compling.
+
+1. Using Homebrew, install libxml2 with `$ brew install libxml2`.
+1. Then run `$ brew link --force libxml2`.
+
 ### Setup
 Now that Docker has been setup, we can now begin setting up the repo on our local machine.
 
