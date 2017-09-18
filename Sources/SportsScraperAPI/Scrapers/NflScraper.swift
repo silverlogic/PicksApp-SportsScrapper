@@ -265,101 +265,23 @@ final class NflScraper: Scrapable {
         }
     }
     
-    func scrapeCurrentPosition(success: @escaping (JSON) -> Void,
-                               failure: @escaping (Error?) -> Void) {
-        KituraRequest.request(.get, Endpoint.nflCurrent).response { (request, response, data, error) in
-            guard error == nil else {
-                APILogger.shared.log(message: "Error perfoming request for current NFL season/week",
-                                     logLevel: .error)
-                failure(error)
-                return
-            }
-            guard let responseData = data else {
-                APILogger.shared.log(message: "Error parsing response data from request for NFL current",
-                                     logLevel: .error)
-                failure(nil)
-                return
-            }
-            guard let html = String(data: responseData, encoding: .utf8) else {
-                APILogger.shared.log(message: "Error generating HTML for NFL current",
-                                     logLevel: .error)
-                failure(nil)
-                return
-            }
-            guard let jiHTML = Ji(htmlString: html) else {
-                APILogger.shared.log(message: "Can't parse document for NFL current",
-                                     logLevel: .error)
-                failure(nil)
-                return
-            }
-            var currentSeason: Int?
-            var currentWeek: Int?
-            // Get the current season
-            guard let pageTitleNode = jiHTML.xPath("//h1[@class='pageTitle feature nfl']") else {
-                APILogger.shared.log(message: "Error geting page title in NFL current",
-                                     logLevel: .error)
-                failure(nil)
-                return
-            }
-            guard let seasonContent = pageTitleNode.first?.content else {
-                APILogger.shared.log(message: "Error getting season content in NFL current",
-                                     logLevel: .error)
-                failure(nil)
-                return
-            }
-            let lowerCasedSeason = seasonContent.lowercased()
-            guard let seasonRange = lowerCasedSeason.range(of: " nfl schedule")?.lowerBound else {
-                APILogger.shared.log(message: "Error getting season range in NFL current",
-                                     logLevel: .error)
-                failure(nil)
-                return
-            }
-            let newSeasonContent = lowerCasedSeason.substring(to: seasonRange)
-            guard let season = Int(newSeasonContent) else {
-                APILogger.shared.log(message: "Error converting season content in NFL current",
-                                     logLevel: .error)
-                failure(nil)
-                return
-            }
-            currentSeason = season
-            // Get the current week
-            guard let titleNode = jiHTML.xPath("//tr[@class='title']") else {
-                APILogger.shared.log(message: "Error geting title in NFL current",
-                                     logLevel: .error)
-                failure(nil)
-                return
-            }
-            guard let weekContent = titleNode.first?.children.first?.content else {
-                APILogger.shared.log(message: "Error getting week content in NFL current",
-                                     logLevel: .error)
-                failure(nil)
-                return
-            }
-            let lowerCasedWeek = weekContent.lowercased()
-            guard let weekRange = lowerCasedWeek.range(of: "week ")?.upperBound else {
-                APILogger.shared.log(message: "Error getting week range in NFL current",
-                                     logLevel: .error)
-                failure(nil)
-                return
-            }
-            let newWeekContent = lowerCasedWeek.substring(from: weekRange)
-            guard let week = Int(newWeekContent) else {
-                APILogger.shared.log(message: "Error converting week content in NFL current",
-                                     logLevel: .error)
-                failure(nil)
-                return
-            }
-            currentWeek = week
-            // Validate that neccessary content is there
-            guard let seasonCurrent = currentSeason,
-                  let weekCurrent = currentWeek else {
-                    APILogger.shared.log(message: "Values are missing for NFL current",
-                                         logLevel: .error)
-                    failure(nil)
-                    return
-            }
-            success(JSON(["season": seasonCurrent, "week": weekCurrent]))
-        }
+    func calculateCurrentPosition(success: @escaping (JSON) -> Void,
+                                  failure: @escaping (Error?) -> Void) {
+        // This represents the first day of the season as day number
+        // September 7, 2017 -> 250
+        // https://www.epochconverter.com/days/2017
+        let firstDayOfTheSeason: Double = 250
+        let currentDate = Date()
+        let calender = Calendar.current
+        // Get current season for NFL
+        let currentSeason = calender.component(.year, from: currentDate)
+        // Get current day number
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "D"
+        let currentDayNumber = Double(dateFormatter.string(from: currentDate))!
+        // Calculate week in NFL
+        let currentWeek = floor(((currentDayNumber - firstDayOfTheSeason) + 2) / 7) + 1
+        success(JSON(["season": currentSeason, "week": currentWeek]))
     }
     
     func scrapeMock(timePeriod: TimePeriod, success: @escaping ([JSON]) -> Void, failure: @escaping (Error?) -> Void) {

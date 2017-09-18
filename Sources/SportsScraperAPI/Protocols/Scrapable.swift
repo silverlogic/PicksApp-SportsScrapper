@@ -60,7 +60,7 @@ protocol Scrapable {
                                   failure: @escaping (_ error: Error?) -> Void)
     
     /**
-        Scrapes current position in a league.
+        Calculates current position in a league.
      
         - Parameters:
             - success: A closure that gets invoked when scraping was successful.
@@ -70,7 +70,7 @@ protocol Scrapable {
             - error: A `Error?` representing the error that occured. Gets passed
                      in `failure`.
     */
-    func scrapeCurrentPosition(success: @escaping (_ result: JSON) -> Void,
+    func calculateCurrentPosition(success: @escaping (_ result: JSON) -> Void,
                                failure: @escaping (_ error: Error?) -> Void)
     
     /**
