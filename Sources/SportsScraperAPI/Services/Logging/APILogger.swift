@@ -23,9 +23,8 @@
 */
 
 import Foundation
+import HeliumLogger
 import LoggerAPI
-import SwiftyBeaverKitura
-import SwiftyBeaver
 
 /**
     A singleton responsible for logging
@@ -43,7 +42,7 @@ public final class APILogger {
     
     /// Initializes an instance of `APILogger`.
     private init() {
-        Log.logger = SwiftyBeaverKitura(destinations: [ConsoleDestination()])
+        Log.logger = HeliumLogger()
     }
     
     
